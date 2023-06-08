@@ -31,6 +31,7 @@ public:
 
     void run();
     void initialize_graphical_context();
+    void initialize_gl_debug_context();
     void initialize_window_context();
     void game_loop();
     void exit_instance();

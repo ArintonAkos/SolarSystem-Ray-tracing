@@ -1,7 +1,9 @@
 #include "Application.h"
+#include "GLDebugMessageCallback.h"
 
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 
 #include "Sun.h"
 #include "Planet.h"
@@ -29,6 +31,7 @@ void Application::runner()
     // add_planets();
 
     initialize_graphical_context();
+    initialize_gl_debug_context();
     initialize_window_context();
 
     game_loop();
@@ -110,6 +113,23 @@ void Application::initialize_graphical_context()
     }
 
     std::cout << "Running OpenGL version: " << gl_major_version << "." << gl_minor_version << std::endl;
+
+    std::stringstream window_title;
+    window_title << "OpenGL " << gl_major_version << "." << gl_minor_version;
+    SDL_SetWindowTitle(window, window_title.str().c_str());
+}
+
+void Application::initialize_gl_debug_context()
+{
+    GLint context_flags;
+    glGetIntegerv(GL_CONTEXT_FLAGS, &context_flags);
+
+    if (context_flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
+        glEnable(GL_DEBUG_OUTPUT);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, nullptr, GL_FALSE);
+        glDebugMessageCallback(GLDebugMessageCallback, nullptr);
+    }
 }
 
 void Application::initialize_window_context()
