@@ -1,9 +1,8 @@
 #include "SpaceObject.h"
-#include "Drawer.h"
 #include "Camera.h"
 
-void SpaceObject::draw(SDL_Renderer* renderer) {
-	Drawer::DrawCircle(renderer, posX(), posY(), radius, color);
+void SpaceObject::draw() {
+
 }
 
 int SpaceObject::posX() {

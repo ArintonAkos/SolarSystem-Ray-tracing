@@ -1,25 +1,21 @@
 #include "Application.h"
+
 #include <iostream>
-#include <SDL.h>
 #include <stdexcept>
-#include <vector>
-#include "SpaceObject.h"
+
 #include "Sun.h"
 #include "Planet.h"
-
-Application* Application::Instance = nullptr;
 
 Application::Application()
 {
     window = nullptr;
-	renderer = nullptr;
-	Instance = this;
+	context = nullptr;
+    camera = nullptr;
+}
 
-    glm::vec3 eye = glm::vec3(0.0f, 0.0f, 5.0f);
-    glm::vec3 at = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-
-    camera = new Camera(eye, at, up);
+Application::~Application()
+{
+    exit_instance();
 }
 
 void Application::run() {
@@ -30,18 +26,20 @@ void Application::run() {
 
 void Application::runner()
 {
-    add_planets();
-    init_components();
+    // add_planets();
+
+    initialize_graphical_context();
+    initialize_window_context();
 
     game_loop();
 }
 
 void Application::add_planets()
 {
-    planets.push_back(new Sun(320, 240, 50, { 255, 255, 0, 255 }, camera));
+//     planets.push_back(new Sun(320, 240, 50, { 255, 255, 0, 255 }, camera));
 
-    planets.push_back(new Planet(100, 0.01, 20, { 255, 0, 0, 255 }, camera));
-    planets.push_back(new Planet(200, 0.005, 30, { 0, 255, 0, 255 }, camera));
+//     planets.push_back(new Planet(100, 0.01, 20, { 255, 0, 0, 255 }, camera));
+//     planets.push_back(new Planet(200, 0.005, 30, { 0, 255, 0, 255 }, camera));
 }
 
 void Application::handle_errors(void (Application::* callback)())
@@ -65,28 +63,83 @@ void Application::handle_errors(void (Application::* callback)())
     }
 }
 
-void Application::init_components()
+void Application::initialize_graphical_context()
 {
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
         throw std::runtime_error("Error initializing SDL: ");
     }
 
-    window = SDL_CreateWindow("Hello SDL!", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
 
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+
+    window = SDL_CreateWindow("Solarsys", 100, 100, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (window == nullptr)
     {
         throw std::runtime_error("Error initializing SDL window");
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-    if (renderer == nullptr)
+    context = SDL_GL_CreateContext(window);
+    if (context == nullptr)
     {
-        throw std::runtime_error("Error initializing SDL renderer");
+        throw std::runtime_error("Error initializing OpenGL context");
     }
 
-    atexit(exit);
+    SDL_GL_SetSwapInterval(1);
+
+    GLenum error = glewInit();
+    if (error != GLEW_OK)
+    {
+		throw std::runtime_error("Error initializing GLEW");
+	}
+
+    int gl_major_version = -1, gl_minor_version = -1;
+    glGetIntegerv(GL_MAJOR_VERSION, &gl_major_version);
+    glGetIntegerv(GL_MINOR_VERSION, &gl_minor_version);
+
+    if (gl_major_version < 0 && gl_minor_version < 0) 
+    {
+        throw std::runtime_error("Failed to initialize OpenGL context");
+    }
+
+    std::cout << "Running OpenGL version: " << gl_major_version << "." << gl_minor_version << std::endl;
+}
+
+void Application::initialize_window_context()
+{
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+
+    // initialize camera, mesh, shader, planets
+    glm::vec3 eye = glm::vec3(0.0f, 0.0f, 5.0f);
+    glm::vec3 at = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+    camera = new Camera(eye, at, up);
+}
+
+void Application::update(float delta_time) 
+{
+    camera->Update(delta_time);
+}
+
+void Application::render()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // bind the actual vertex array that you want to draw
+    // glBindVertexArray(0);
+
+    glBindVertexArray(0);
 }
 
 void Application::game_loop() {
@@ -127,37 +180,30 @@ void Application::game_loop() {
             }
         }
 
-        camera->Update(delta_time);
+        update(delta_time);
 
-        // Clear screen
-        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-        SDL_RenderClear(renderer);
+        render();
 
-        draw_planets();
-
-        // Update screen
-        SDL_RenderPresent(renderer);
+        SDL_GL_SwapWindow(window);
     }
-
-    exit();
 }
 
 void Application::draw_planets()
 {
-    for (auto planet : planets) {
+    /*for (auto planet : planets) {
         planet->move();
-        planet->draw(renderer);
-    }
+        planet->draw();
+    }*/
 }
 
 void Application::exit_instance()
 {
     std::cout << "Exiting application..." << std::endl;
 
-    if (renderer != nullptr)
+    if (context != nullptr)
     {
-        SDL_DestroyRenderer(renderer);
-        renderer = nullptr;
+        SDL_GL_DeleteContext(context);
+        context = nullptr;
     }
 
     if (window != nullptr)
@@ -172,16 +218,4 @@ void Application::exit_instance()
     }
 
     SDL_Quit();
-
-    std::cin.get();
-}
-
-void Application::exit()
-{
-    if (Instance != nullptr)
-    {
-        Instance->exit_instance();
-        delete Instance;
-        Instance = nullptr;
-    }
 }

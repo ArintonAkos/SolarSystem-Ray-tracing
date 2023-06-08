@@ -43,6 +43,8 @@ void Camera::SetView(glm::vec3 _eye, glm::vec3 _at, glm::vec3 _up)
     m_v = acosf(m_fw.y);
 }
 
+
+
 void Camera::SetProj(float _angle, float _aspect, float _zn, float _zf) 
 {
     m_matProj = glm::perspective(_angle, _aspect, _zn, _zf);
@@ -92,4 +94,9 @@ void Camera::KeyboardUp(SDL_KeyboardEvent& key)
 void Camera::MouseMove(SDL_MouseMotionEvent& mouse)
 {
     // Implement your MouseMove logic here
+}
+
+SDL_Rect Camera::getView()
+{
+    return SDL_Rect();
 }

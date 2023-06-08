@@ -3,8 +3,9 @@
 
 int main( int argc, char* args[] )
 {
-	Application app{};
+	Application app;
 
-	app.run();	
+	app.run();
+
 	return 0;
 }

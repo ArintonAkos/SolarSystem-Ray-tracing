@@ -3,5 +3,5 @@
 
 class Drawable {
 public:
-    virtual void draw(SDL_Renderer* renderer) = 0;
+    virtual void draw() = 0;
 };

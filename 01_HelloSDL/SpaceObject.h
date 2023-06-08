@@ -13,7 +13,7 @@ protected:
 public:
     SpaceObject(int x, int y, int radius, SDL_Color color, Camera* camera) : x(x), y(y), radius(radius), color(color), camera(camera) {}
 
-    virtual void draw(SDL_Renderer* renderer) override;
+    virtual void draw() override;
 
     int posX();
 
