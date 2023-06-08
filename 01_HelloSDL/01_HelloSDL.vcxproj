@@ -94,6 +94,7 @@
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SpaceObject.cpp" />
+    <ClCompile Include="Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpaceObject.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>
