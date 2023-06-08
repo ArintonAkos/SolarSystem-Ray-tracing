@@ -87,13 +87,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="SpaceObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="Drawer.h" />
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="SpaceObject.h" />

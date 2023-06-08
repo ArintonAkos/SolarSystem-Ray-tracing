@@ -3,9 +3,11 @@
 #include <SDL.h>
 #include <vector>
 #include "SpaceObject.h"
+#include "Camera.h"
 
 class Application {
 private:
+    Camera* camera;
     std::vector<SpaceObject*> planets;
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -21,10 +23,7 @@ private:
 public:
     static Application* Instance;
 
-    Application() : window(nullptr), renderer(nullptr)
-    {
-        Instance = this;
-    };
+    Application();
 
     void run();
 
