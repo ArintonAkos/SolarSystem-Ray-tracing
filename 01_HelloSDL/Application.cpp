@@ -14,7 +14,12 @@ Application::Application()
     window = nullptr;
 	renderer = nullptr;
 	Instance = this;
-    camera = new Camera(640, 480);
+
+    glm::vec3 eye = glm::vec3(0.0f, 0.0f, 5.0f);
+    glm::vec3 at = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+    camera = new Camera(eye, at, up);
 }
 
 void Application::run() {
@@ -88,8 +93,17 @@ void Application::game_loop() {
     bool running = true;
     SDL_Event e;
 
+    Uint32 time_start = SDL_GetTicks();
+    Uint32 time_end;
+    float delta_time = 0.0f;
+
     while (running)
     {
+        time_end = SDL_GetTicks();
+
+        delta_time = (time_end - time_start) / 1000.0f;
+        time_start = time_end;
+
         while (SDL_PollEvent(&e) != 0)
         {
             if (e.type == SDL_QUIT)
@@ -98,9 +112,22 @@ void Application::game_loop() {
             } 
             else
             {
-                camera->handleEvent(e);
+                switch (e.type)
+                {
+                case SDL_KEYDOWN:
+                    camera->KeyboardDown(e.key);
+                    break;
+                case SDL_KEYUP:
+                    camera->KeyboardUp(e.key);
+                    break;
+                case SDL_MOUSEMOTION:
+                    camera->MouseMove(e.motion);
+                    break;
+                }
             }
         }
+
+        camera->Update(delta_time);
 
         // Clear screen
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
