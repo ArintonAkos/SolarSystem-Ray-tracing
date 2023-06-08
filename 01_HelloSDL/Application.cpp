@@ -210,15 +210,23 @@ void Application::game_loop() {
 
 void Application::draw_planets()
 {
-    /*for (auto planet : planets) {
+    for (auto planet : planets)
+    {
         planet->move();
         planet->draw();
-    }*/
+    }
 }
 
 void Application::exit_instance()
 {
     std::cout << "Exiting application..." << std::endl;
+
+    for (auto planet : planets)
+    {
+        delete planet;
+    }
+
+    planets.clear();
 
     if (context != nullptr)
     {
