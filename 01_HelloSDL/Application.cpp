@@ -28,7 +28,7 @@ void Application::run() {
 
 void Application::runner()
 {
-    // add_planets();
+     add_planets();
 
     initialize_graphical_context();
     initialize_gl_debug_context();
@@ -39,10 +39,10 @@ void Application::runner()
 
 void Application::add_planets()
 {
-//     planets.push_back(new Sun(320, 240, 50, { 255, 255, 0, 255 }, camera));
+     planets.push_back(new Sun(320, 240, 50, { 255, 255, 0, 255 }, camera));
 
-//     planets.push_back(new Planet(100, 0.01, 20, { 255, 0, 0, 255 }, camera));
-//     planets.push_back(new Planet(200, 0.005, 30, { 0, 255, 0, 255 }, camera));
+     planets.push_back(new Planet(100, 0.01, 20, { 255, 0, 0, 255 }, camera));
+     planets.push_back(new Planet(200, 0.005, 30, { 0, 255, 0, 255 }, camera));
 }
 
 void Application::handle_errors(void (Application::* callback)())

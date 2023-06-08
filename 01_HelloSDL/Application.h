@@ -13,7 +13,7 @@
 class Application {
 private:
     Camera* camera;
-    // std::vector<SpaceObject*> planets;
+    std::vector<SpaceObject*> planets;
     SDL_Window* window;
     SDL_GLContext context;
 

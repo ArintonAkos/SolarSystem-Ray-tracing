@@ -13,11 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Planets">
-      <UniqueIdentifier>{e01c35f1-ce55-47f3-9fee-eaef9a19c53d}</UniqueIdentifier>
+    <Filter Include="Header Files\Scene Objects">
+      <UniqueIdentifier>{625ee035-a690-47af-a190-52c81ec7586a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Planets">
+    <Filter Include="Source Files\Scene Objects">
       <UniqueIdentifier>{e8674349-cc4f-4ad4-b611-d2c9013470f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GL Classes">
+      <UniqueIdentifier>{c16bf438-84fe-4ba7-b8f4-a1d550ecd5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL Classes">
+      <UniqueIdentifier>{13f1b71c-d971-4454-8b08-78b1e306a6bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -28,22 +34,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpaceObject.cpp">
-      <Filter>Source Files\Planets</Filter>
+      <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
     <ClCompile Include="Planet.cpp">
-      <Filter>Source Files\Planets</Filter>
+      <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GL Classes</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GL Classes</Filter>
     </ClCompile>
     <ClCompile Include="GLDebugMessageCallback.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GL Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,29 +62,29 @@
     <ClInclude Include="Moveable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpaceObject.h">
-      <Filter>Header Files\Planets</Filter>
-    </ClInclude>
-    <ClInclude Include="Sun.h">
-      <Filter>Header Files\Planets</Filter>
-    </ClInclude>
-    <ClInclude Include="Planet.h">
-      <Filter>Header Files\Planets</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DataTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SpaceObject.h">
+      <Filter>Header Files\Scene Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sun.h">
+      <Filter>Header Files\Scene Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Planet.h">
+      <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
     <ClInclude Include="GLDebugMessageCallback.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GL Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\GL Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\GL Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
