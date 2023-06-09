@@ -1,10 +1,20 @@
 #pragma once
-#include <SDL.h>
-#include "SpaceObject.h"
+#include "Sphere.h"
+#include "Shader.h"
 
-class Sun : public SpaceObject {
+class Sun : public Sphere
+{
+private:
+    Shader* shader;
+    DataTypes::Texture texture;
+    glm::vec3 position;
+
 public:
-    Sun(int x, int y, int radius, SDL_Color color, Camera* camera) : SpaceObject(x, y, radius, color, camera) {}
+    Sun(float radius, DataTypes::Texture texture);
 
-    void move() override {};
+    ~Sun();
+
+    void draw() override;
+
+    glm::vec3 getPosition() const;
 };

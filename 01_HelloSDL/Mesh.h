@@ -3,8 +3,10 @@
 #include <vector>
 
 #include "DataTypes.h"
+#include "Drawable.h"
 
-class Mesh {
+class Mesh : public Drawable
+{
 private:
     std::vector<DataTypes::Vertex> vertices;
     std::vector<uint32_t> indices;

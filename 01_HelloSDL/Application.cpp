@@ -13,6 +13,7 @@ Application::Application()
     window = nullptr;
 	context = nullptr;
     camera = nullptr;
+    solarSystem = nullptr;
 }
 
 Application::~Application()
@@ -28,21 +29,22 @@ void Application::run() {
 
 void Application::runner()
 {
-     add_planets();
-
     initialize_graphical_context();
     initialize_gl_debug_context();
     initialize_window_context();
 
+    create_solar_system();
+
     game_loop();
 }
 
-void Application::add_planets()
+void Application::create_solar_system()
 {
-     planets.push_back(new Sun(320, 240, 50, { 255, 255, 0, 255 }, camera));
+    solarSystem = new SolarSystem("sun.jpg");
 
-     planets.push_back(new Planet(100, 0.01, 20, { 255, 0, 0, 255 }, camera));
-     planets.push_back(new Planet(200, 0.005, 30, { 0, 255, 0, 255 }, camera));
+    // Add every planet to the solar system
+    // We should create new planets with the correct texture and radius
+    // by extending the planet class with the correct features
 }
 
 void Application::handle_errors(void (Application::* callback)())
@@ -210,23 +212,12 @@ void Application::game_loop() {
 
 void Application::draw_planets()
 {
-    for (auto planet : planets)
-    {
-        planet->move();
-        planet->draw();
-    }
+    solarSystem->draw();
 }
 
 void Application::exit_instance()
 {
     std::cout << "Exiting application..." << std::endl;
-
-    for (auto planet : planets)
-    {
-        delete planet;
-    }
-
-    planets.clear();
 
     if (context != nullptr)
     {
@@ -243,6 +234,11 @@ void Application::exit_instance()
     if (camera != nullptr)
     {
         delete camera;
+    }
+
+    if (solarSystem != nullptr)
+    {
+        delete solarSystem;
     }
 
     SDL_Quit();

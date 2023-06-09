@@ -1,16 +1,24 @@
 #pragma once
 #include <SDL.h>
 #include "SpaceObject.h"
+#include "Sphere.h"
+#include "Shader.h"
 
-class Planet : public SpaceObject {
+class Planet : public SpaceObject, public Sphere {
 private:
-    int orbitRadius;
-    double orbitSpeed;
-    double orbitAngle;
+    Shader* shader;
+    DataTypes::Texture texture;
+    
+    float orbitSpeed;
+    float orbitAngle;
+    float orbitRadius;
 
 public:
-    Planet(int orbitRadius, double orbitSpeed, int radius, SDL_Color color, Camera* camera)
-        : SpaceObject(0, 0, radius, color, camera), orbitRadius(orbitRadius), orbitSpeed(orbitSpeed), orbitAngle(0) {}
+    Planet(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, glm::vec3 position, DataTypes::Texture texture, Camera* camera);
+
+    ~Planet();
 
     void move() override;
+
+    void draw() override;
 };

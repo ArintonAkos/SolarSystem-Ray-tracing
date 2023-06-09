@@ -25,6 +25,18 @@
     <Filter Include="Source Files\GL Classes">
       <UniqueIdentifier>{13f1b71c-d971-4454-8b08-78b1e306a6bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{d4e232ef-082a-434a-9cad-b5dee925503e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{05af772e-7d77-4ebb-9843-8570dca83239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Fragment Shaders">
+      <UniqueIdentifier>{2abf3006-808b-4494-b5dd-b5efd42899f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Vertex shaders">
+      <UniqueIdentifier>{061b10cc-6f37-4476-ab12-84fbe44db240}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,6 +64,12 @@
       <Filter>Source Files\GL Classes</Filter>
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
+      <Filter>Source Files\Scene Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SolarSystem.cpp">
+      <Filter>Source Files\Scene Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sun.cpp">
       <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,10 +110,51 @@
     <ClInclude Include="Sphere.h">
       <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
+    <ClInclude Include="SolarSystem.h">
+      <Filter>Header Files\Scene Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="planet.frag">
+      <Filter>Resource Files\Shaders\Fragment Shaders</Filter>
+    </None>
+    <None Include="planet.vert">
+      <Filter>Resource Files\Shaders\Vertex shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\skybox.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\sun.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\saturn.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\uranus.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\venus.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\earth.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\jupiter.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\mars.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\mercury.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\neptune.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

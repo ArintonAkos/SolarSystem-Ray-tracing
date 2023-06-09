@@ -5,17 +5,11 @@
 
 class SpaceObject : public Movable {
 protected:
-    int x, y;  // position
-    int radius; // size
-    SDL_Color color; // color
     Camera* camera;
+    glm::vec3 position;
 
 public:
-    SpaceObject(int x, int y, int radius, SDL_Color color, Camera* camera) : x(x), y(y), radius(radius), color(color), camera(camera) {}
+    SpaceObject(Camera* camera, glm::vec3 position) : camera(camera), position(position) {};
 
-    virtual void draw() override;
-
-    int posX();
-
-    int posY();
+    glm::vec3 getPosition() const;
 };

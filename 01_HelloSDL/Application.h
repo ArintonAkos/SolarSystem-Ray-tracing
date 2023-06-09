@@ -9,17 +9,18 @@
 
 #include "SpaceObject.h"
 #include "Camera.h"
+#include "SolarSystem.h"
 
 class Application {
 private:
     Camera* camera;
-    std::vector<SpaceObject*> planets;
     SDL_Window* window;
     SDL_GLContext context;
+    SolarSystem* solarSystem;
 
     void handle_errors(void (Application::* callback)());
     void runner();
-    void add_planets();
+    void create_solar_system();
     void draw_planets();
 
     void update(float delta_time);

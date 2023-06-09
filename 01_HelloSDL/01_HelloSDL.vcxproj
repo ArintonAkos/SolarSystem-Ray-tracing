@@ -93,8 +93,10 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SolarSystem.cpp" />
     <ClCompile Include="SpaceObject.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Sun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -106,12 +108,27 @@
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SpaceObject.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
+    <None Include="planet.frag" />
+    <None Include="planet.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\earth.jpg" />
+    <Image Include="Textures\jupiter.jpg" />
+    <Image Include="Textures\mars.jpg" />
+    <Image Include="Textures\mercury.jpg" />
+    <Image Include="Textures\neptune.jpg" />
+    <Image Include="Textures\saturn.jpg" />
+    <Image Include="Textures\skybox.jpg" />
+    <Image Include="Textures\sun.jpg" />
+    <Image Include="Textures\uranus.jpg" />
+    <Image Include="Textures\venus.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

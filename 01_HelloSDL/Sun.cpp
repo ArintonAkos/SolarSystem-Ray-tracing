@@ -1,34 +1,24 @@
-#include "Planet.h"
+#include "Sun.h"
 #include "DataTypes.h"
-#include "Shader.h"
+#include <vector>
 
-Planet::Planet(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, glm::vec3 position, DataTypes::Texture texture, Camera* camera)
-	: SpaceObject(camera, position), Sphere(radius, 50, 80)
+Sun::Sun(float radius, DataTypes::Texture texture) : Sphere(radius, 50, 80)
 {
-	this->orbitSpeed = orbitSpeed;
-	this->orbitAngle = orbitAngle;
-	this->orbitRadius = orbitRadius;
-	this->camera = camera;
     this->texture = texture;
-    this->shader = new Shader("planet.vert", "planet.frag");
+    this->shader = new Shader("sun.vert", "sun.frag");
+    this->position = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
-void Planet::move()
+Sun::~Sun()
 {
-	orbitAngle += orbitSpeed;
-
-	float newX = orbitRadius * cos(orbitAngle);
-	float newY = 0.0f;
-	float newZ = orbitRadius * sin(orbitAngle);
-
-	position = glm::vec3(newX, newY, newZ);
+    delete shader;
 }
 
-void Planet::draw()
+void Sun::draw()
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
-
+    
     glActiveTexture(GL_TEXTURE0 + 0);
 
     std::string number;
@@ -55,7 +45,7 @@ void Planet::draw()
     glActiveTexture(GL_TEXTURE0);
 }
 
-Planet::~Planet()
+glm::vec3 Sun::getPosition() const
 {
-    delete shader;
+	return position;
 }
