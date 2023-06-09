@@ -3,9 +3,9 @@
 #include <vector>
 
 #include "DataTypes.h"
-#include "Drawable.h"
+#include "Shader.h"
 
-class Mesh : public Drawable
+class Mesh
 {
 private:
     std::vector<DataTypes::Vertex> vertices;
@@ -23,6 +23,12 @@ public:
     void set_vertices(const std::vector<DataTypes::Vertex>& vertices);
     void set_indices(const std::vector<uint32_t>& indices);
     void set_textures(const std::vector<DataTypes::Texture>& textures);
+
+    void add_texture(GLuint texture_id);
+    
+    static GLuint create_texture_from_file(const char* texturePath);
+
+    virtual void draw(Shader *shader);
 
     void destroy();
 };

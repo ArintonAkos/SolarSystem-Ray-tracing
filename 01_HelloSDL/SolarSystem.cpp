@@ -1,10 +1,19 @@
 #include "SolarSystem.h"
-#include "Sun.h"
 
-SolarSystem::SolarSystem(const std::string& sunTexturePath)
+#include "Sun.h"
+#include "Sphere.h"
+
+SolarSystem::SolarSystem(const char* sunTexturePath)
 {
-    DataTypes::Texture sunTexture{0, "", sunTexturePath };
-    sun = new Sun(200.0f, sunTexture);
+    shader = new Shader("default.vert", "default.frag");
+    planetMesh = new Sphere(40, 50, 50);
+
+    GLuint sunTexture = Mesh::create_texture_from_file(sunTexturePath);
+    planetMesh->add_texture(sunTexture);
+
+    sun = new Sun();
+    sun->attach_mesh(planetMesh);
+    sun->attach_shader(shader);
 }
 
 SolarSystem::~SolarSystem()
@@ -14,6 +23,8 @@ SolarSystem::~SolarSystem()
         delete planet;
     }
 
+    delete planetMesh;
+    delete shader;
     delete sun;
 }
 

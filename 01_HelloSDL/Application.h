@@ -7,7 +7,6 @@
 
 #include <vector>
 
-#include "SpaceObject.h"
 #include "Camera.h"
 #include "SolarSystem.h"
 
@@ -20,8 +19,14 @@ private:
 
     void handle_errors(void (Application::* callback)());
     void runner();
-    void create_solar_system();
-    void draw_planets();
+
+    void initialize_graphical_context();
+    void initialize_gl_debug_context();
+    void initialize_window_context();
+    
+    void game_loop();
+    
+    void exit_instance();
 
     void update(float delta_time);
     void render();
@@ -31,9 +36,4 @@ public:
     ~Application();
 
     void run();
-    void initialize_graphical_context();
-    void initialize_gl_debug_context();
-    void initialize_window_context();
-    void game_loop();
-    void exit_instance();
 };

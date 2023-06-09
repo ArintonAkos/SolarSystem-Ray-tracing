@@ -1,5 +1,8 @@
-#include <GL/glew.h>
 #include "Mesh.h"
+
+#include <GL/glew.h>
+#include <SDL_image.h>
+#include <stdexcept>
 
 Mesh::Mesh(const std::vector<DataTypes::Vertex> &vertices, const std::vector<uint32_t> &indices,
 	const std::vector<DataTypes::Texture> &textures)
@@ -29,6 +32,14 @@ void Mesh::destroy()
     {
         glDeleteBuffers(1, &elementBufferObject);
     }
+
+    for (auto& texture : textures)
+	{
+        if (texture.id > 0) 
+        {
+            glDeleteTextures(1, &texture.id);
+        }
+	}
 }
 
 void Mesh::setup_mesh()
@@ -74,4 +85,64 @@ void Mesh::set_indices(const std::vector<uint32_t>& indices)
 void Mesh::set_textures(const std::vector<DataTypes::Texture>& textures)
 {
 	this->textures = textures;
+}
+
+void Mesh::add_texture(GLuint texture_id)
+{
+    DataTypes::Texture texture = { texture_id, "texture_diffuse" };
+
+    textures.push_back(texture);
+}
+
+GLuint Mesh::create_texture_from_file(const char* texturePath)
+{
+    SDL_Surface* surface = IMG_Load(texturePath);
+    int img_mode = 0;
+
+    if (!surface) 
+    {
+        throw std::runtime_error("Failed to load texture");
+    }
+
+# if SDL_BYTEORDER == SDL_LIL_ENDIAN
+    if (surface->format->BytesPerPixel == 4) 
+        img_mode = GL_BGRA;
+    else 
+        img_mode = GL_BGR;
+# else
+    if (surface->format->BytesPerPixel == 4) 
+		img_mode = GL_RGBA;
+	else 
+		img_mode = GL_RGB;
+# endif
+
+    GLuint texture_id = 0;
+    glGenTextures(1, &texture_id);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, surface->w, surface->h, img_mode, GL_UNSIGNED_BYTE, surface->pixels);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    SDL_FreeSurface(surface);
+
+    return texture_id;
+}
+
+void Mesh::draw(Shader *shader)
+{
+    shader->activate();
+
+    for (size_t i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	}
+
+    glBindVertexArray(vertexArrayObject);
+	glDrawElements(GL_TRIANGLES, static_cast<uint32_t>(indices.size()), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
+	glActiveTexture(GL_TEXTURE0);
 }

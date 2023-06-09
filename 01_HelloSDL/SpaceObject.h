@@ -1,15 +1,14 @@
 #pragma once
-#include "Moveable.h"
-#include <SDL.h>
-#include "Camera.h"
 
-class SpaceObject : public Movable {
+#include "glm/glm.hpp"
+
+class SpaceObject {
 protected:
-    Camera* camera;
     glm::vec3 position;
 
 public:
-    SpaceObject(Camera* camera, glm::vec3 position) : camera(camera), position(position) {};
+    SpaceObject() : position(glm::vec3(0.0f)) {};
+    SpaceObject(glm::vec3 position) : position(position) {};
 
     glm::vec3 getPosition() const;
 };

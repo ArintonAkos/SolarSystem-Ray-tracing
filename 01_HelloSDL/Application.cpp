@@ -5,9 +5,6 @@
 #include <stdexcept>
 #include <sstream>
 
-#include "Sun.h"
-#include "Planet.h"
-
 Application::Application()
 {
     window = nullptr;
@@ -33,18 +30,7 @@ void Application::runner()
     initialize_gl_debug_context();
     initialize_window_context();
 
-    create_solar_system();
-
     game_loop();
-}
-
-void Application::create_solar_system()
-{
-    solarSystem = new SolarSystem("sun.jpg");
-
-    // Add every planet to the solar system
-    // We should create new planets with the correct texture and radius
-    // by extending the planet class with the correct features
 }
 
 void Application::handle_errors(void (Application::* callback)())
@@ -136,17 +122,18 @@ void Application::initialize_gl_debug_context()
 
 void Application::initialize_window_context()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-    // initialize camera, mesh, shader, planets
     glm::vec3 eye = glm::vec3(0.0f, 0.0f, 5.0f);
     glm::vec3 at = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
     camera = new Camera(eye, at, up);
+
+    solarSystem = new SolarSystem("Textures/sun.jpg");
 }
 
 void Application::update(float delta_time) 
@@ -158,10 +145,7 @@ void Application::render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // bind the actual vertex array that you want to draw
-    // glBindVertexArray(0);
-
-    glBindVertexArray(0);
+    solarSystem->draw();
 }
 
 void Application::game_loop() {
@@ -208,11 +192,6 @@ void Application::game_loop() {
 
         SDL_GL_SwapWindow(window);
     }
-}
-
-void Application::draw_planets()
-{
-    solarSystem->draw();
 }
 
 void Application::exit_instance()

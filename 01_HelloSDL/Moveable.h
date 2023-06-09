@@ -1,8 +1,6 @@
 #pragma once
-#include <SDL.h>
-#include "Drawable.h"
 
-class Movable : public Drawable {
+class Movable {
 public:
     virtual void move() = 0;
 };
