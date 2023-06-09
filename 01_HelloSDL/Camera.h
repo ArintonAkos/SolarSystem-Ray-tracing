@@ -39,7 +39,7 @@ public:
     glm::vec3 GetEye() { return m_eye; }
     glm::vec3 GetAt() { return m_at; }
     glm::vec3 GetUp() { return m_up; }
-    glm::mat4 GetProj() { return m_matProj; }
+    glm::mat4 GetProjectionMatrix() { return m_matProj; }
     glm::mat4 GetViewProj() { return m_matViewProj; }
 
     SDL_Rect getView();

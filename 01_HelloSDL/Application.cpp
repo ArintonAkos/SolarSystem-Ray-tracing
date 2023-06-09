@@ -145,7 +145,7 @@ void Application::render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    solarSystem->draw();
+    solarSystem->draw(camera);
 }
 
 void Application::game_loop() {

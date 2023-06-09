@@ -98,3 +98,18 @@ void Shader::activate()
 {
 	glUseProgram(program_id);
 }
+
+void Shader::setVec3(const char* name, glm::vec3 value) const 
+{
+	glUniform3fv(glGetUniformLocation(program_id, name), 1, &value[0]);
+}
+
+void Shader::setVec3(const char* name, float x, float y, float z) const 
+{
+	glUniform3f(glGetUniformLocation(program_id, name), x, y, z);
+}
+
+void Shader::setMat4(const char* name, glm::mat4 mat) const 
+{
+	glUniformMatrix4fv(glGetUniformLocation(program_id, name), 1, GL_FALSE, &mat[0][0]);
+}

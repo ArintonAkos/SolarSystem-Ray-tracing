@@ -3,12 +3,16 @@
 #include "glm/glm.hpp"
 
 class SpaceObject {
-protected:
-    glm::vec3 position;
+private:
+    glm::mat4 transform;
 
 public:
-    SpaceObject() : position(glm::vec3(0.0f)) {};
-    SpaceObject(glm::vec3 position) : position(position) {};
+    SpaceObject() : transform(glm::mat4(1.0f)) {};
 
-    glm::vec3 getPosition() const;
+    void translate(float x, float y, float z);
+    void rotate(float xAngle, float yAngle, float zAngle);
+    void scale(float xScale, float yScale, float zScale);
+
+    void setTransform(glm::mat4 transform);
+    glm::mat4 getTransform() const;
 };

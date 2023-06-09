@@ -16,5 +16,8 @@ public:
     void attach_mesh(Mesh* mesh);
     void attach_shader(Shader* shader);
 
+    Mesh* get_attached_mesh();
+    Shader* get_attached_shader();
+
     void draw();
 };

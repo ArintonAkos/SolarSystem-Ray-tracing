@@ -13,9 +13,19 @@ void Drawable::attach_mesh(Mesh* mesh)
 	this->mesh = mesh;
 }
 
+Mesh* Drawable::get_attached_mesh()
+{
+	return mesh;
+}
+
 void Drawable::attach_shader(Shader* shader)
 {
 	this->shader = shader;
+}
+
+Shader* Drawable::get_attached_shader()
+{
+	return shader;
 }
 
 void Drawable::draw()

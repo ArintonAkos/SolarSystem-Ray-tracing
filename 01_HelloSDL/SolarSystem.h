@@ -6,6 +6,7 @@
 #include "Sun.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "Camera.h"
 
 class SolarSystem
 {
@@ -23,9 +24,7 @@ public:
 
     void addPlanet(Planet* planet);
 
-    void draw();
+    void draw(Camera* camera);
 
     void update();
-
-    glm::vec3 getLightDirection(const Planet& planet) const;
 };

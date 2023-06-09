@@ -2,4 +2,4 @@
 
 Sun::Sun() {}
 
-Sun::~Sun() { }
+Sun::~Sun() {}
