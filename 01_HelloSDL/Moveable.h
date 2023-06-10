@@ -2,5 +2,5 @@
 
 class Movable {
 public:
-    virtual void move() = 0;
+    virtual void move(float deltaTime) {};
 };

@@ -1,102 +1,173 @@
 ﻿#include "Camera.h"
-#include <SDL.h>
 #include <iostream>
 
-Camera::Camera(glm::vec3 _eye, glm::vec3 _at, glm::vec3 _up) : m_eye(_eye), m_at(_at), m_up(_up) 
+Camera::Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) : eye(eye), worldUp(worldUp), pitch(pitch), yaw(yaw)
 {
-    m_speed = 16.0f;
-    m_goFw = m_goRight = 0;
-    m_dist = 10;
-    m_slow = false;
+    speed = 10.0f;
+    sensitivity = 0.1f;
+    moveForward = moveRight = moveUp = 0;
+    nearPlaneDistance = 10;
 
-    SetView(_eye, _at, _up);
-    SetProj(glm::radians(60.0f), 640 / 480.0f, 0.01f, 1000.0f);
+    setViewMatrix(eye, worldUp, pitch, yaw);
+    setProjectionMatrix(glm::radians(60.0f), 640 / 480.0f, 0.01f, 1000.0f);
 }
 
 Camera::~Camera(void) {}
 
-void Camera::UpdateUV(float du, float dv) 
+void Camera::calculateViewMatrix()
 {
-    m_u += du;
-    m_v = glm::clamp<float>(m_v + dv, 0.1f, 3.1f);
+    frontAxis = glm::normalize(glm::vec3(
+        cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
+		sin(glm::radians(pitch)),
+		sin(glm::radians(yaw)) * cos(glm::radians(pitch))
+    ));
 
-    m_at = m_eye + m_dist * glm::vec3(cosf(m_u) * sinf(m_v),
-        cosf(m_v),
-        sinf(m_u) * sinf(m_v));
+    sideAxis = glm::normalize(glm::cross(frontAxis, worldUp));
+    upAxis = glm::normalize(glm::cross(sideAxis, frontAxis));
 
-    m_fw = glm::normalize(m_at - m_eye);
-    m_st = glm::normalize(glm::cross(m_fw, m_up));
+    viewMatrix = glm::lookAt(eye, eye + frontAxis, upAxis);
+    viewProjectionMatrix = projectionMatrix * viewMatrix;
 }
 
-void Camera::SetView(glm::vec3 _eye, glm::vec3 _at, glm::vec3 _up) 
+void Camera::setViewMatrix(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) 
 {
-    m_eye = _eye;
-    m_at = _at;
-    m_up = _up;
+    this->eye = eye;
+    this->worldUp = worldUp;
+    this->pitch = pitch;
+    this->yaw = yaw;
 
-    m_fw = glm::normalize(m_at - m_eye);
-    m_st = glm::normalize(glm::cross(m_fw, m_up));
-
-    m_dist = glm::length(m_at - m_eye);
-
-    m_u = atan2f(m_fw.z, m_fw.x);
-    m_v = acosf(m_fw.y);
+    calculateViewMatrix();
 }
 
-
-
-void Camera::SetProj(float _angle, float _aspect, float _zn, float _zf) 
+void Camera::setProjectionMatrix(float angle, float aspect, float zn, float zf) 
 {
-    m_matProj = glm::perspective(_angle, _aspect, _zn, _zf);
-    m_matViewProj = m_matProj * m_viewMatrix;
+    projectionMatrix = glm::perspective(angle, aspect, zn, zf);
+    viewProjectionMatrix = projectionMatrix * viewMatrix;
 }
 
-glm::mat4 Camera::GetViewMatrix() 
+void Camera::setSpeed(float value)
 {
-    return m_viewMatrix;
+    speed = value;
 }
 
-void Camera::Update(float _deltaTime)
+glm::mat4 Camera::getViewMatrix() const
 {
-    if (m_goFw || m_goRight) {
-        glm::vec3 direction = (m_goFw * m_fw + m_goRight * m_st);
-        direction = glm::normalize(direction);
-        glm::vec3 move = direction * m_speed * _deltaTime;
+    return viewMatrix;
+}
 
-        m_eye += move;
-        m_at += move;
+glm::vec3 Camera::getEyePosition() const
+{
+    return eye;
+}
 
-        m_viewMatrix = glm::lookAt(m_eye, m_at, m_up);
-        m_matViewProj = m_matProj * m_viewMatrix;
+glm::vec3 Camera::getForwardDirection() const
+{
+    return frontAxis;
+}
+
+glm::vec3 Camera::getUpDirection() const
+{
+    return upAxis;
+}
+
+glm::mat4 Camera::getProjectionMatrix() const
+{
+    return projectionMatrix;
+}
+
+glm::mat4 Camera::getViewProjectionMatrix() const
+{
+    return viewProjectionMatrix;
+}
+
+void Camera::resize(int width, int height)
+{
+    setProjectionMatrix(glm::radians(60.0f), width / (float)height, 0.01f, 1000.0f);
+}
+
+void Camera::updateView(float relX, float relY)
+{
+    yaw += relX * sensitivity;
+	pitch -= relY * sensitivity;
+
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+	else if (pitch < -89.0f)
+		pitch = -89.0f;
+
+    calculateViewMatrix();
+}
+
+void Camera::update(float deltaTime)
+{
+    if (moveForward || moveRight || moveUp) 
+	{
+        glm::vec3 direction = glm::normalize(frontAxis * moveForward + sideAxis * moveRight + upAxis * moveUp);
+		eye += direction * speed * deltaTime;
+		calculateViewMatrix();
+	}
+}
+
+void Camera::handleKeyDownEvent(const SDL_KeyboardEvent& key)
+{
+    if (key.keysym.scancode == SDL_SCANCODE_W) 
+    {
+        moveForward = 1.0f;
+	}
+	else if (key.keysym.scancode == SDL_SCANCODE_S) 
+	{
+		moveForward = -1.0f;
+	}
+	else if (key.keysym.scancode == SDL_SCANCODE_A) 
+	{
+		moveRight = -1.0f;
+	}
+	else if (key.keysym.scancode == SDL_SCANCODE_D) 
+	{
+		moveRight = 1.0f;
+    }
+    else if (key.keysym.scancode == SDL_SCANCODE_SPACE)
+    {
+        moveUp = 1.0f;
+    }
+    else if (key.keysym.scancode == SDL_SCANCODE_LCTRL)
+    {
+        moveUp = -1.0f;
     }
 }
 
-void Camera::SetSpeed(float _val)
+void Camera::handleKeyUpEvent(const SDL_KeyboardEvent& key)
 {
-    m_speed = _val;
+    if (key.keysym.scancode == SDL_SCANCODE_W)
+    {
+        moveForward = 0.0f;
+    }
+    else if (key.keysym.scancode == SDL_SCANCODE_S)
+	{
+		moveForward = 0.0f;
+	}
+	else if (key.keysym.scancode == SDL_SCANCODE_A)
+	{
+		moveRight = 0.0f;
+	}
+	else if (key.keysym.scancode == SDL_SCANCODE_D)
+	{
+		moveRight = 0.0f;
+	}
+    else if (key.keysym.scancode == SDL_SCANCODE_SPACE)
+    {
+        moveUp = 0.0f;
+    }
+    else if (key.keysym.scancode == SDL_SCANCODE_LCTRL)
+    {
+        moveUp = 0.0f;
+    }
 }
 
-void Camera::Resize(int _w, int _h)
+void Camera::handleMouseMovedEvent(const SDL_MouseMotionEvent& mouse)
 {
-    SetProj(glm::radians(60.0f), _w / (float)_h, 0.01f, 1000.0f);
-}
-
-void Camera::KeyboardDown(SDL_KeyboardEvent& key)
-{
-    // Implement your KeyboardDown logic here
-}
-
-void Camera::KeyboardUp(SDL_KeyboardEvent& key)
-{
-    // Implement your KeyboardUp logic here
-}
-
-void Camera::MouseMove(SDL_MouseMotionEvent& mouse)
-{
-    // Implement your MouseMove logic here
-}
-
-SDL_Rect Camera::getView()
-{
-    return SDL_Rect();
+    if (mouse.state & SDL_BUTTON_LMASK) 
+    {
+        updateView(mouse.xrel, mouse.yrel);
+    }
 }

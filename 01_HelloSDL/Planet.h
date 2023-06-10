@@ -10,9 +10,9 @@ private:
     float orbitRadius;
 
 public:
-    Planet(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, glm::vec3 position);
+    Planet(float orbitSpeed, float orbitAngle, float orbitRadius);
 
     ~Planet();
 
-    void move() override;
+    void move(float deltaTime) override;
 };

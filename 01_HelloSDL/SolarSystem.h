@@ -14,8 +14,8 @@ private:
     Mesh* planetMesh;
     Shader* shader;
 
-    std::vector<Planet*> planets;
     Sun* sun;
+    std::vector<Planet*> planets;
 
 public:
     SolarSystem(const char* sunTexturePath);
@@ -26,5 +26,5 @@ public:
 
     void draw(Camera* camera);
 
-    void update();
+    void update(float deltaTime);
 };

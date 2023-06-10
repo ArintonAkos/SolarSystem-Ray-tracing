@@ -12,7 +12,6 @@ SolarSystem::SolarSystem(const char* sunTexturePath)
     planetMesh->add_texture(sunTexture);
 
     sun = new Sun();
-    sun->scale(0.011f, 0.011f, 0.011f);
     sun->attach_mesh(planetMesh);
     sun->attach_shader(shader);
 }
@@ -37,8 +36,8 @@ void SolarSystem::addPlanet(Planet* planet)
 void SolarSystem::draw(Camera* camera)
 {
     Shader* activeShader = sun->get_attached_shader();
-    activeShader->setMat4("view", camera->GetViewMatrix());
-    activeShader->setMat4("projection", camera->GetProjectionMatrix());
+    activeShader->setMat4("view", camera->getViewMatrix());
+    activeShader->setMat4("projection", camera->getProjectionMatrix());
 
     activeShader->setMat4("model", sun->getTransform());
     sun->draw();
@@ -50,10 +49,10 @@ void SolarSystem::draw(Camera* camera)
     }
 }
 
-void SolarSystem::update()
+void SolarSystem::update(float deltaTime)
 {
     for (auto planet : planets)
     {
-        planet->move();
+        planet->move(deltaTime);
     }
 }

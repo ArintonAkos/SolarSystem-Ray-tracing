@@ -1,7 +1,7 @@
 #include "Planet.h"
 #include "DataTypes.h"
 
-Planet::Planet(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, glm::vec3 position)
+Planet::Planet(float orbitSpeed, float orbitAngle, float orbitRadius)
 {
 	this->orbitSpeed = orbitSpeed;
 	this->orbitAngle = orbitAngle;
@@ -10,9 +10,9 @@ Planet::Planet(float radius, float orbitSpeed, float orbitAngle, float orbitRadi
 
 Planet::~Planet() {}
 
-void Planet::move()
+void Planet::move(float deltaTime)
 {
-	orbitAngle += orbitSpeed;
+	orbitAngle += orbitSpeed * deltaTime;
 
 	float newX = orbitRadius * cos(orbitAngle);
 	float newY = 0.0f;

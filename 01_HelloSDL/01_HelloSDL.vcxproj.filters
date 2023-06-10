@@ -72,6 +72,9 @@
     <ClCompile Include="Sun.cpp">
       <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -123,6 +126,12 @@
     </None>
     <None Include="planet.vert">
       <Filter>Resource Files\Shaders\Vertex shaders</Filter>
+    </None>
+    <None Include="default.vert">
+      <Filter>Resource Files\Shaders\Vertex shaders</Filter>
+    </None>
+    <None Include="default.frag">
+      <Filter>Resource Files\Shaders\Fragment Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

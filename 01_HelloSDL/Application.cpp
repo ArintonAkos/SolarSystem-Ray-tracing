@@ -127,18 +127,18 @@ void Application::initialize_window_context()
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-    glm::vec3 eye = glm::vec3(0.0f, 0.0f, 5.0f);
-    glm::vec3 at = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 eye = glm::vec3(0.0f, 0.0f, -3.0f);
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    camera = new Camera(eye, at, up);
+    camera = new Camera(eye, up, 0.0f, 90.0f);
 
     solarSystem = new SolarSystem("Textures/sun.jpg");
 }
 
 void Application::update(float delta_time) 
 {
-    camera->Update(delta_time);
+    camera->update(delta_time);
+    solarSystem->update(delta_time);
 }
 
 void Application::render()
@@ -174,13 +174,13 @@ void Application::game_loop() {
                 switch (e.type)
                 {
                 case SDL_KEYDOWN:
-                    camera->KeyboardDown(e.key);
+                    camera->handleKeyDownEvent(e.key);
                     break;
                 case SDL_KEYUP:
-                    camera->KeyboardUp(e.key);
+                    camera->handleKeyUpEvent(e.key);
                     break;
                 case SDL_MOUSEMOTION:
-                    camera->MouseMove(e.motion);
+                    camera->handleMouseMovedEvent(e.motion);
                     break;
                 }
             }

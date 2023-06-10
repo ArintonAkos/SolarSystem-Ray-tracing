@@ -3,44 +3,44 @@
 #include <SDL.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <math.h>
+#include <cmath>
 
 class Camera {
 private:
-    glm::vec3 m_eye, m_at, m_up;
-    float m_speed;
-    float m_goFw, m_goRight;
-    float m_dist;
-    bool m_slow;
-    glm::vec3 m_fw, m_st;
-    float m_u, m_v;
-    glm::mat4 m_matProj, m_matViewProj, m_viewMatrix;
+    glm::vec3 eye, worldUp;
+    glm::vec3 frontAxis, sideAxis, upAxis;
+    glm::mat4 projectionMatrix, viewMatrix, viewProjectionMatrix;
 
-    void UpdateUV(float du, float dv);
-    void SetView(glm::vec3 _eye, glm::vec3 _at, glm::vec3 _up);
-    void SetProj(float _angle, float _aspect, float _zn, float _zf);
+    float nearPlaneDistance;
+    
+    float yaw, pitch;
+    float speed, sensitivity;
+    float moveForward, moveRight, moveUp;
+    
+    void calculateViewMatrix();
 
-    static int last_mouse_x;
-    static int last_mouse_y;
+    void updateView(float relX, float relY);    
+    void setViewMatrix(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw);
+    void setProjectionMatrix(float angle, float aspect, float zn, float zf);
 
 public:
-    Camera(glm::vec3 _eye, glm::vec3 _at, glm::vec3 _up);
-    ~Camera(void);
+    Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw);
+    ~Camera();
 
-    glm::mat4 GetViewMatrix();
-    void Update(float _deltaTime);
-    void SetSpeed(float _val);
-    void Resize(int _w, int _h);
+    void setSpeed(float value);
 
-    void KeyboardDown(SDL_KeyboardEvent& key);
-    void KeyboardUp(SDL_KeyboardEvent& key);
-    void MouseMove(SDL_MouseMotionEvent& mouse);
+    glm::vec3 getEyePosition() const;
+    glm::vec3 getForwardDirection() const;
+    glm::vec3 getUpDirection() const;
+    glm::mat4 getViewMatrix() const;
+    glm::mat4 getProjectionMatrix() const;
+    glm::mat4 getViewProjectionMatrix() const;
+    
+    void update(float deltaTime);
 
-    glm::vec3 GetEye() { return m_eye; }
-    glm::vec3 GetAt() { return m_at; }
-    glm::vec3 GetUp() { return m_up; }
-    glm::mat4 GetProjectionMatrix() { return m_matProj; }
-    glm::mat4 GetViewProj() { return m_matViewProj; }
+    void resize(int width, int height);
 
-    SDL_Rect getView();
+    void handleKeyDownEvent(const SDL_KeyboardEvent& key);
+    void handleKeyUpEvent(const SDL_KeyboardEvent& key);
+    void handleMouseMovedEvent(const SDL_MouseMotionEvent& mouse);
 };
