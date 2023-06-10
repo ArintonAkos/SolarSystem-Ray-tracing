@@ -4,7 +4,7 @@
 
 SolarSystem::SolarSystem()
 {
-    shader = new Shader("default.vert", "default.frag");
+    shader = new Shader("planet.vert", "planet.frag");
     planetMesh = new PlanetMesh(1.0f, 50, 50);
 
     planetMesh->add_texture(Mesh::create_texture_from_file("Textures/sun.jpg"));
@@ -53,6 +53,14 @@ void SolarSystem::draw(Camera* camera)
     Shader* activeShader = sun->get_attached_shader();
     activeShader->setMat4("view", camera->getViewMatrix());
     activeShader->setMat4("projection", camera->getProjectionMatrix());
+    activeShader->setVec3("light.position", 0, 0, 0);
+    activeShader->setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+    activeShader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+    activeShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+    activeShader->setFloat("light.constant", 1.0f);
+    activeShader->setFloat("light.linear", 0.09f);
+    activeShader->setFloat("light.quadratic", 0.032f);
 
     planetMesh->set_texture_to_draw(TEXTURE_SUN);
     activeShader->setMat4("model", sun->getTransform());

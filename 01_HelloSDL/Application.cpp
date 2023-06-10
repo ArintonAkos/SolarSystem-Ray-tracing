@@ -120,7 +120,6 @@ void Application::initialize_window_context()
 {
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-    glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
     glm::vec3 eye = glm::vec3(0.0f, 0.0f, -3.0f);
