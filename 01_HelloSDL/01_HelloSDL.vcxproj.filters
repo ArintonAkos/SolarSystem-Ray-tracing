@@ -63,9 +63,6 @@
     <ClCompile Include="GLDebugMessageCallback.cpp">
       <Filter>Source Files\GL Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Source Files\Scene Objects</Filter>
-    </ClCompile>
     <ClCompile Include="SolarSystem.cpp">
       <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
@@ -74,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="Drawable.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Source Files\GL Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanetMesh.cpp">
+      <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,10 +113,13 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files\GL Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="SolarSystem.h">
       <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
-    <ClInclude Include="SolarSystem.h">
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\GL Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetMesh.h">
       <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
   </ItemGroup>

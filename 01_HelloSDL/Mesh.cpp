@@ -104,7 +104,7 @@ GLuint Mesh::create_texture_from_file(const char* texturePath)
         throw std::runtime_error("Failed to load texture");
     }
 
-# if SDL_BYTEORDER == SDL_LIL_ENDIAN
+# if SDL_BYTEORDER == SDL_BIG_ENDIAN
     if (surface->format->BytesPerPixel == 4) 
         img_mode = GL_BGRA;
     else 

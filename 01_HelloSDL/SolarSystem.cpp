@@ -1,14 +1,13 @@
 #include "SolarSystem.h"
 
 #include "Sun.h"
-#include "Sphere.h"
 
-SolarSystem::SolarSystem(const char* sunTexturePath)
+SolarSystem::SolarSystem()
 {
     shader = new Shader("default.vert", "default.frag");
-    planetMesh = new Sphere(1.0f, 50, 50);
+    planetMesh = new PlanetMesh(1.0f, 50, 50);
 
-    GLuint sunTexture = Mesh::create_texture_from_file(sunTexturePath);
+    GLuint sunTexture = Mesh::create_texture_from_file("Textures/sun.jpg");
     planetMesh->add_texture(sunTexture);
 
     sun = new Sun();
@@ -18,7 +17,7 @@ SolarSystem::SolarSystem(const char* sunTexturePath)
 
 SolarSystem::~SolarSystem()
 {
-    for (auto planet : planets)
+    for (auto& planet : planets)
     {
         delete planet;
     }
@@ -39,11 +38,13 @@ void SolarSystem::draw(Camera* camera)
     activeShader->setMat4("view", camera->getViewMatrix());
     activeShader->setMat4("projection", camera->getProjectionMatrix());
 
+    planetMesh->set_texture_to_draw(TEXTURE_SUN);
     activeShader->setMat4("model", sun->getTransform());
     sun->draw();
 
-    for (auto planet : planets)
+    for (auto& planet : planets)
     {
+        activeShader = planet->get_attached_shader();
         activeShader->setMat4("model", planet->getTransform());
         planet->draw();
     }
@@ -51,7 +52,7 @@ void SolarSystem::draw(Camera* camera)
 
 void SolarSystem::update(float deltaTime)
 {
-    for (auto planet : planets)
+    for (auto& planet : planets)
     {
         planet->move(deltaTime);
     }

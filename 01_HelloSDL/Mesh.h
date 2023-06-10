@@ -7,7 +7,7 @@
 
 class Mesh
 {
-private:
+protected:
     std::vector<DataTypes::Vertex> vertices;
     std::vector<uint32_t> indices;
     std::vector<DataTypes::Texture> textures;

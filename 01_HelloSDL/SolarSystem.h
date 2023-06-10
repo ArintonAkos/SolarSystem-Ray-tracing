@@ -4,22 +4,21 @@
 
 #include "Planet.h"
 #include "Sun.h"
-#include "Mesh.h"
+#include "PlanetMesh.h"
 #include "Shader.h"
 #include "Camera.h"
 
 class SolarSystem
 {
 private:
-    Mesh* planetMesh;
+    PlanetMesh* planetMesh;
     Shader* shader;
 
     Sun* sun;
     std::vector<Planet*> planets;
 
 public:
-    SolarSystem(const char* sunTexturePath);
-
+    SolarSystem();
     ~SolarSystem();
 
     void addPlanet(Planet* planet);

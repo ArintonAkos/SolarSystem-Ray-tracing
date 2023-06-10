@@ -101,10 +101,6 @@ void Application::initialize_graphical_context()
     }
 
     std::cout << "Running OpenGL version: " << gl_major_version << "." << gl_minor_version << std::endl;
-
-    std::stringstream window_title;
-    window_title << "OpenGL " << gl_major_version << "." << gl_minor_version;
-    SDL_SetWindowTitle(window, window_title.str().c_str());
 }
 
 void Application::initialize_gl_debug_context()
@@ -132,7 +128,7 @@ void Application::initialize_window_context()
 
     camera = new Camera(eye, up, 0.0f, 90.0f);
 
-    solarSystem = new SolarSystem("Textures/sun.jpg");
+    solarSystem = new SolarSystem();
 }
 
 void Application::update(float delta_time) 
@@ -173,15 +169,17 @@ void Application::game_loop() {
             {
                 switch (e.type)
                 {
-                case SDL_KEYDOWN:
-                    camera->handleKeyDownEvent(e.key);
-                    break;
-                case SDL_KEYUP:
-                    camera->handleKeyUpEvent(e.key);
-                    break;
-                case SDL_MOUSEMOTION:
-                    camera->handleMouseMovedEvent(e.motion);
-                    break;
+                    case SDL_KEYDOWN:
+                        camera->handleKeyDownEvent(e.key);
+                        break;
+                    case SDL_KEYUP:
+                        camera->handleKeyUpEvent(e.key);
+                        break;
+                    case SDL_MOUSEMOTION:
+                        camera->handleMouseMovedEvent(e.motion);
+                        break;
+                    default:
+						break;
                 }
             }
         }
