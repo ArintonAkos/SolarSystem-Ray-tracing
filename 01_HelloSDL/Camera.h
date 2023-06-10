@@ -11,15 +11,12 @@ private:
     glm::vec3 frontAxis, sideAxis, upAxis;
     glm::mat4 projectionMatrix, viewMatrix, viewProjectionMatrix;
 
-    float nearPlaneDistance;
-    
     float yaw, pitch;
     float speed, sensitivity;
     float moveForward, moveRight, moveUp;
     
     void calculateViewMatrix();
-
-    void updateView(float relX, float relY);    
+  
     void setViewMatrix(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw);
     void setProjectionMatrix(float angle, float aspect, float zn, float zf);
 
@@ -37,6 +34,7 @@ public:
     glm::mat4 getViewProjectionMatrix() const;
     
     void update(float deltaTime);
+    void updateView(float relPitch, float relYaw);
 
     void resize(int width, int height);
 

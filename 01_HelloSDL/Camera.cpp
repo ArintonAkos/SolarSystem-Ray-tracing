@@ -1,12 +1,10 @@
 ﻿#include "Camera.h"
-#include <iostream>
 
 Camera::Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) : eye(eye), worldUp(worldUp), pitch(pitch), yaw(yaw)
 {
     speed = 10.0f;
     sensitivity = 0.1f;
     moveForward = moveRight = moveUp = 0;
-    nearPlaneDistance = 10;
 
     setViewMatrix(eye, worldUp, pitch, yaw);
     setProjectionMatrix(glm::radians(60.0f), 640 / 480.0f, 0.01f, 1000.0f);
@@ -85,10 +83,10 @@ void Camera::resize(int width, int height)
     setProjectionMatrix(glm::radians(60.0f), width / (float)height, 0.01f, 1000.0f);
 }
 
-void Camera::updateView(float relX, float relY)
+void Camera::updateView(float relPitch, float relYaw)
 {
-    yaw += relX * sensitivity;
-	pitch -= relY * sensitivity;
+    yaw += relPitch * sensitivity;
+	pitch -= relYaw * sensitivity;
 
 	if (pitch > 89.0f)
 		pitch = 89.0f;
@@ -103,64 +101,58 @@ void Camera::update(float deltaTime)
     if (moveForward || moveRight || moveUp) 
 	{
         glm::vec3 direction = glm::normalize(frontAxis * moveForward + sideAxis * moveRight + upAxis * moveUp);
-		eye += direction * speed * deltaTime;
-		calculateViewMatrix();
+		
+        eye += direction * speed * deltaTime;
+		
+        calculateViewMatrix();
 	}
 }
 
 void Camera::handleKeyDownEvent(const SDL_KeyboardEvent& key)
 {
-    if (key.keysym.scancode == SDL_SCANCODE_W) 
+    switch (key.keysym.scancode)
     {
-        moveForward = 1.0f;
-	}
-	else if (key.keysym.scancode == SDL_SCANCODE_S) 
-	{
-		moveForward = -1.0f;
-	}
-	else if (key.keysym.scancode == SDL_SCANCODE_A) 
-	{
-		moveRight = -1.0f;
-	}
-	else if (key.keysym.scancode == SDL_SCANCODE_D) 
-	{
-		moveRight = 1.0f;
-    }
-    else if (key.keysym.scancode == SDL_SCANCODE_SPACE)
-    {
-        moveUp = 1.0f;
-    }
-    else if (key.keysym.scancode == SDL_SCANCODE_LCTRL)
-    {
-        moveUp = -1.0f;
+        case SDL_SCANCODE_W:
+            moveForward = 1.0f;
+            break;
+        case SDL_SCANCODE_S:
+            moveForward = -1.0f;
+            break;
+        case SDL_SCANCODE_A:
+	        moveRight = -1.0f;
+		    break;
+        case SDL_SCANCODE_D:
+            moveRight = 1.0f;
+            break;
+        case SDL_SCANCODE_SPACE:
+            moveUp = 1.0f;
+		    break;
+        case SDL_SCANCODE_LCTRL:
+            moveUp = -1.0f;
+            break;
+        default:
+            break;
     }
 }
 
 void Camera::handleKeyUpEvent(const SDL_KeyboardEvent& key)
 {
-    if (key.keysym.scancode == SDL_SCANCODE_W)
+    switch (key.keysym.scancode)
     {
-        moveForward = 0.0f;
-    }
-    else if (key.keysym.scancode == SDL_SCANCODE_S)
-	{
-		moveForward = 0.0f;
-	}
-	else if (key.keysym.scancode == SDL_SCANCODE_A)
-	{
-		moveRight = 0.0f;
-	}
-	else if (key.keysym.scancode == SDL_SCANCODE_D)
-	{
-		moveRight = 0.0f;
-	}
-    else if (key.keysym.scancode == SDL_SCANCODE_SPACE)
-    {
-        moveUp = 0.0f;
-    }
-    else if (key.keysym.scancode == SDL_SCANCODE_LCTRL)
-    {
-        moveUp = 0.0f;
+        case SDL_SCANCODE_W:
+        case SDL_SCANCODE_S:
+		    moveForward = 0.0f;
+		    break;
+        case SDL_SCANCODE_A:
+        case SDL_SCANCODE_D:
+            moveRight = 0.0f;
+            break;
+        case SDL_SCANCODE_SPACE:
+        case SDL_SCANCODE_LCTRL:
+		    moveUp = 0.0f;
+		    break;
+        default:
+            break;
     }
 }
 
