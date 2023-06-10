@@ -15,8 +15,7 @@ void Planet::move(float deltaTime)
 	orbitAngle += orbitSpeed * deltaTime;
 
 	float newX = orbitRadius * cos(orbitAngle);
-	float newY = 0.0f;
 	float newZ = orbitRadius * sin(orbitAngle);
 
-	translate(newX, newY, newZ);
+	setPosition(newX, 0, newZ);
 }

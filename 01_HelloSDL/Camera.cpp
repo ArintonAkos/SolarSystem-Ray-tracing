@@ -1,5 +1,7 @@
 ﻿#include "Camera.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 Camera::Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) : eye(eye), worldUp(worldUp), pitch(pitch), yaw(yaw)
 {
     speed = 10.0f;
