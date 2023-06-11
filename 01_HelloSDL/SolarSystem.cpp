@@ -61,7 +61,7 @@ void SolarSystem::draw(Camera* camera)
     activeShader->setFloat("light.constant", 1.0f);
     activeShader->setFloat("light.linear", 0.09f);
     activeShader->setFloat("light.quadratic", 0.032f);
-
+    
     planetMesh->set_texture_to_draw(TEXTURE_SUN);
     activeShader->setMat4("model", sun->getTransform());
     sun->draw();
