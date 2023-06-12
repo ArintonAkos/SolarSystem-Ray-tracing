@@ -1,7 +1,7 @@
 #include "Planet.h"
 #include "DataTypes.h"
 
-Planet::Planet(float orbitSpeed, float orbitAngle, float orbitRadius)
+Planet::Planet(float orbitSpeed, float orbitAngle, float orbitRadius) : radius(1.0f)
 {
 	this->orbitSpeed = orbitSpeed;
 	this->orbitAngle = orbitAngle;
@@ -9,6 +9,11 @@ Planet::Planet(float orbitSpeed, float orbitAngle, float orbitRadius)
 }
 
 Planet::~Planet() {}
+
+float Planet::getRadius() const
+{
+	return radius * std::max(std::max(mScale.x, mScale.y), mScale.z);
+}
 
 void Planet::move(float deltaTime)
 {

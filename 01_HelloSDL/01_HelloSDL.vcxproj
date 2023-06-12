@@ -94,6 +94,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="PlanetMesh.cpp" />
+    <ClCompile Include="PlanetShader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
     <ClCompile Include="SpaceObject.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="PlanetMesh.h" />
+    <ClInclude Include="PlanetShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SpaceObject.h" />

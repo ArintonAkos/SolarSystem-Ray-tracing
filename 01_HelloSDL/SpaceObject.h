@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 class SpaceObject {
-private:
+protected:
     glm::vec3 mPosition;
     glm::vec3 mRotation;
     glm::vec3 mScale;

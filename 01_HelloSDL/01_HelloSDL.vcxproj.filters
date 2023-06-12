@@ -78,6 +78,9 @@
     <ClCompile Include="PlanetMesh.cpp">
       <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
+    <ClCompile Include="PlanetShader.cpp">
+      <Filter>Source Files\Scene Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files\GL Classes</Filter>
     </ClInclude>
     <ClInclude Include="PlanetMesh.h">
+      <Filter>Header Files\Scene Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetShader.h">
       <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
   </ItemGroup>
