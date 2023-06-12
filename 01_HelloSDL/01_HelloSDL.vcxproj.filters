@@ -37,6 +37,9 @@
     <Filter Include="Resource Files\Shaders\Vertex shaders">
       <UniqueIdentifier>{061b10cc-6f37-4476-ab12-84fbe44db240}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures\Skybox">
+      <UniqueIdentifier>{f44578e4-5f21-40e8-8b72-345a68a04c69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,6 +79,15 @@
       <Filter>Source Files\GL Classes</Filter>
     </ClCompile>
     <ClCompile Include="PlanetMesh.cpp">
+      <Filter>Source Files\Scene Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMesh.cpp">
+      <Filter>Source Files\GL Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Source Files\GL Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="SolarSystemSkyBox.cpp">
       <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,6 +134,21 @@
     <ClInclude Include="PlanetMesh.h">
       <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\GL Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMesh.h">
+      <Filter>Header Files\GL Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Header Files\GL Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SolarSystemSkyBox.h">
+      <Filter>Header Files\Scene Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
@@ -138,6 +165,12 @@
     </None>
     <None Include="default.frag">
       <Filter>Resource Files\Shaders\Fragment Shaders</Filter>
+    </None>
+    <None Include="skybox.frag">
+      <Filter>Resource Files\Shaders\Fragment Shaders</Filter>
+    </None>
+    <None Include="skybox.vert">
+      <Filter>Resource Files\Shaders\Vertex shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +203,24 @@
     </Image>
     <Image Include="Textures\neptune.jpg">
       <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\left.jpg">
+      <Filter>Resource Files\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\right.jpg">
+      <Filter>Resource Files\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\top.jpg">
+      <Filter>Resource Files\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\back.jpg">
+      <Filter>Resource Files\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\bottom.jpg">
+      <Filter>Resource Files\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\front.jpg">
+      <Filter>Resource Files\Textures\Skybox</Filter>
     </Image>
   </ItemGroup>
 </Project>

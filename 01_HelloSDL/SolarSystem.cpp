@@ -1,11 +1,13 @@
 #include "SolarSystem.h"
 
+
 #include "Sun.h"
 
 SolarSystem::SolarSystem()
 {
-    shader = new Shader("planet.vert", "planet.frag");
+    shader = new Shader("default.vert", "default.frag");
     planetMesh = new PlanetMesh(1.0f, 50, 50);
+    skyBox = new SolarSystemSkyBox();
 
     planetMesh->add_texture(Mesh::create_texture_from_file("Textures/sun.jpg"));
     planetMesh->add_texture(Mesh::create_texture_from_file("Textures/mercury.jpg"));
@@ -41,6 +43,7 @@ SolarSystem::~SolarSystem()
     delete planetMesh;
     delete shader;
     delete sun;
+    delete skyBox;
 }
 
 void SolarSystem::addPlanet(Planet* planet)
@@ -50,6 +53,8 @@ void SolarSystem::addPlanet(Planet* planet)
 
 void SolarSystem::draw(Camera* camera)
 {
+    skyBox->draw(camera);
+
     Shader* activeShader = sun->get_attached_shader();
     activeShader->setMat4("view", camera->getViewMatrix());
     activeShader->setMat4("projection", camera->getProjectionMatrix());

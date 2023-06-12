@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMesh.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="GLDebugMessageCallback.cpp" />
     <ClCompile Include="main.cpp" />
@@ -95,7 +96,9 @@
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="PlanetMesh.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
+    <ClCompile Include="SolarSystemSkyBox.cpp" />
     <ClCompile Include="SpaceObject.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Sun.cpp" />
@@ -103,6 +106,8 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="CubeMesh.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
@@ -111,9 +116,12 @@
     <ClInclude Include="Planet.h" />
     <ClInclude Include="PlanetMesh.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SolarSystem.h" />
+    <ClInclude Include="SolarSystemSkyBox.h" />
     <ClInclude Include="SpaceObject.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +130,8 @@
     <None Include="default.vert" />
     <None Include="planet.frag" />
     <None Include="planet.vert" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\earth.jpg" />
@@ -131,6 +141,12 @@
     <Image Include="Textures\neptune.jpg" />
     <Image Include="Textures\saturn.jpg" />
     <Image Include="Textures\skybox.jpg" />
+    <Image Include="Textures\Skybox\back.jpg" />
+    <Image Include="Textures\Skybox\bottom.jpg" />
+    <Image Include="Textures\Skybox\front.jpg" />
+    <Image Include="Textures\Skybox\left.jpg" />
+    <Image Include="Textures\Skybox\right.jpg" />
+    <Image Include="Textures\Skybox\top.jpg" />
     <Image Include="Textures\sun.jpg" />
     <Image Include="Textures\uranus.jpg" />
     <Image Include="Textures\venus.jpg" />

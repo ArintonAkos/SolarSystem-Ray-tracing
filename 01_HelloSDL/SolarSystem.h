@@ -7,13 +7,15 @@
 #include "PlanetMesh.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "SolarSystemSkyBox.h"
 
 class SolarSystem
 {
 private:
     PlanetMesh* planetMesh;
     Shader* shader;
-
+    
+    SolarSystemSkyBox* skyBox;
     Sun* sun;
     std::vector<Planet*> planets;
 
