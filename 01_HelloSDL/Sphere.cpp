@@ -24,7 +24,7 @@ Sphere::Sphere(float radius, uint32_t rings, uint32_t sectors)
 
 			v->position = glm::vec3(x, y, z) * radius;
 			v->normal = glm::vec3(x, y, z);
-			v->texCoords = glm::vec2(s * S, r * R);
+			v->texCoords = glm::vec2(s * S, 1 - r * R);
 
 			++v;
 		}

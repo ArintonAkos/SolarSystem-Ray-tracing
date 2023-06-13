@@ -90,6 +90,9 @@
     <ClCompile Include="SolarSystemSkyBox.cpp">
       <Filter>Source Files\Scene Objects</Filter>
     </ClCompile>
+    <ClCompile Include="PlanetShader.cpp">
+      <Filter>Source Files\Scene Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetShader.h">
+      <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

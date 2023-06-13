@@ -99,22 +99,66 @@ void Shader::activate()
 	glUseProgram(program_id);
 }
 
-void Shader::setVec3(const char* name, glm::vec3 value) const 
+void Shader::setInt(const std::string& name, int value) const
 {
-	glUniform3fv(glGetUniformLocation(program_id, name), 1, &value[0]);
+	glUniform1i(glGetUniformLocation(program_id, name.c_str()), value);
 }
 
-void Shader::setVec3(const char* name, float x, float y, float z) const 
+void Shader::setFloat(const std::string& name, float value) const
 {
-	glUniform3f(glGetUniformLocation(program_id, name), x, y, z);
+	glUniform1f(glGetUniformLocation(program_id, name.c_str()), value);
 }
 
-void Shader::setMat4(const char* name, glm::mat4 mat) const 
+void Shader::setVec3(const std::string& name, glm::vec3 value) const 
 {
-	glUniformMatrix4fv(glGetUniformLocation(program_id, name), 1, GL_FALSE, &mat[0][0]);
+	glUniform3fv(glGetUniformLocation(program_id, name.c_str()), 1, &value[0]);
 }
 
-void Shader::setFloat(const char* name, float value) const
+void Shader::setVec3(const std::string& name, float x, float y, float z) const 
 {
-	glUniform1f(glGetUniformLocation(program_id, name), value);
+	glUniform3f(glGetUniformLocation(program_id, name.c_str()), x, y, z);
+}
+
+void Shader::setMat4(const std::string& name, glm::mat4 mat) const 
+{
+	glUniformMatrix4fv(glGetUniformLocation(program_id, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+
+void Shader::setMaterial(const std::string& name, DataTypes::Material material) const
+{
+	setVec3(name + ".ambient", material.ambient);
+	setVec3(name + ".diffuse", material.diffuse);
+	setVec3(name + ".specular", material.specular);
+	setFloat(name + ".shininess", material.shininess);
+}
+
+void Shader::setLight(const std::string& name, DataTypes::Light light) const
+{
+	setVec3(name + ".position", light.position);
+
+	setVec3(name + ".ambient", light.ambient);
+	setVec3(name + ".diffuse", light.diffuse);
+	setVec3(name + ".specular", light.specular);
+	
+	setFloat(name + ".constant", light.constant);
+	setFloat(name + ".linear", light.linear);
+	setFloat(name + ".quadratic", light.quadratic);
+}
+
+void Shader::setMaterialArr(const std::string& name, std::vector<DataTypes::Material> materials) const
+{
+	for (size_t i = 0; i < materials.size(); ++i)
+	{
+		std::string varName = name + "[" + std::to_string(i) + "]";
+		setMaterial(varName, materials[i]);
+	}
+}
+
+void Shader::setLightArr(const std::string& name, std::vector<DataTypes::Light> lights) const
+{
+	for (size_t i = 0; i < lights.size(); ++i)
+	{
+		std::string varName = name + "[" + std::to_string(i) + "]";
+		setLight(varName, lights[i]);
+	}
 }

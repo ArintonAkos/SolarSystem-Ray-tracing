@@ -9,7 +9,7 @@ Camera::Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) : eye(e
     moveForward = moveRight = moveUp = 0;
 
     setViewMatrix(eye, worldUp, pitch, yaw);
-    setProjectionMatrix(glm::radians(60.0f), 640 / 480.0f, 0.01f, 1000.0f);
+    setProjectionMatrix(glm::radians(60.0f), 640.0f, 480.0f, 0.01f, 1000.0f);
 }
 
 Camera::~Camera(void) {}
@@ -39,9 +39,13 @@ void Camera::setViewMatrix(glm::vec3 eye, glm::vec3 worldUp, float pitch, float 
     calculateViewMatrix();
 }
 
-void Camera::setProjectionMatrix(float angle, float aspect, float zn, float zf) 
+void Camera::setProjectionMatrix(float fov, float width, float height, float nearPlane, float farPlane) 
 {
-    projectionMatrix = glm::perspective(angle, aspect, zn, zf);
+    this->fov = fov;
+    this->width = width;
+    this->height = height;
+
+    projectionMatrix = glm::perspective(fov, width / height, nearPlane, farPlane);
     viewProjectionMatrix = projectionMatrix * viewMatrix;
 }
 
@@ -65,9 +69,29 @@ glm::vec3 Camera::getForwardDirection() const
     return frontAxis;
 }
 
+glm::vec3 Camera::getSideDirection() const
+{
+    return sideAxis;
+}
+
 glm::vec3 Camera::getUpDirection() const
 {
     return upAxis;
+}
+
+float Camera::getFOV() const
+{
+    return fov;
+}
+
+float Camera::getWidth() const
+{
+    return width;
+}
+
+float Camera::getHeight() const
+{
+    return height;
 }
 
 glm::mat4 Camera::getProjectionMatrix() const
@@ -82,7 +106,7 @@ glm::mat4 Camera::getViewProjectionMatrix() const
 
 void Camera::resize(int width, int height)
 {
-    setProjectionMatrix(glm::radians(60.0f), width / (float)height, 0.01f, 1000.0f);
+    setProjectionMatrix(glm::radians(60.0f), width, height, 0.01f, 1000.0f);
 }
 
 void Camera::updateView(float relPitch, float relYaw)

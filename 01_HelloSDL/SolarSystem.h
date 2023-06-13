@@ -5,17 +5,21 @@
 #include "Planet.h"
 #include "Sun.h"
 #include "PlanetMesh.h"
-#include "Shader.h"
+#include "PlanetShader.h"
 #include "Camera.h"
+#include "DataTypes.h"
 #include "SolarSystemSkyBox.h"
 
 class SolarSystem
 {
 private:
     PlanetMesh* planetMesh;
-    Shader* shader;
-    
+    PlanetShader* planetShader;
     SolarSystemSkyBox* skyBox;
+
+    std::vector<DataTypes::Material> materials;
+    std::vector<DataTypes::Light> lights;
+
     Sun* sun;
     std::vector<Planet*> planets;
 

@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <string>
+#include <vector>
+
 #include "DataTypes.h"
 
 class Shader {
@@ -19,8 +21,16 @@ public:
 
 	void activate();
 
-	void setVec3(const char* name, glm::vec3 value) const;
-	void setVec3(const char* name, float x, float y, float z) const;
-	void setMat4(const char* name, glm::mat4 value) const;
-	void setFloat(const char* name, float value) const;
+	void setInt(const std::string& name, int value) const;
+	void setFloat(const std::string& name, float value) const;
+	
+	void setVec3(const std::string& name, glm::vec3 value) const;
+	void setVec3(const std::string& name, float x, float y, float z) const;
+	void setMat4(const std::string& name, glm::mat4 value) const;
+
+	void setMaterial(const std::string& name, DataTypes::Material material) const;
+	void setLight(const std::string& name, DataTypes::Light light) const;
+
+	void setMaterialArr(const std::string& name, std::vector<DataTypes::Material> materials) const;
+	void setLightArr(const std::string& name, std::vector<DataTypes::Light> lights) const;
 };
