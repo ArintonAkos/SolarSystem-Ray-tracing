@@ -1,9 +1,9 @@
 #pragma once
 
-#include "SpaceObject.h"
+#include "SceneObject.h"
 #include "Drawable.h"
 
-class Sun : public SpaceObject
+class Sun : public SceneObject
 {
 public:
     Sun();

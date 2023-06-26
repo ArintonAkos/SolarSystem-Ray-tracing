@@ -98,7 +98,7 @@
     <ClCompile Include="SceneShader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
-    <ClCompile Include="SpaceObject.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="Sun.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +115,7 @@
     <ClInclude Include="SceneShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SolarSystem.h" />
-    <ClInclude Include="SpaceObject.h" />
+    <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +133,12 @@
     <Image Include="Textures\neptune.jpg" />
     <Image Include="Textures\saturn.jpg" />
     <Image Include="Textures\skybox.jpg" />
+    <Image Include="Textures\Skybox\back.jpg" />
+    <Image Include="Textures\Skybox\bottom.jpg" />
+    <Image Include="Textures\Skybox\front.jpg" />
+    <Image Include="Textures\Skybox\left.jpg" />
+    <Image Include="Textures\Skybox\right.jpg" />
+    <Image Include="Textures\Skybox\top.jpg" />
     <Image Include="Textures\sun.jpg" />
     <Image Include="Textures\uranus.jpg" />
     <Image Include="Textures\venus.jpg" />

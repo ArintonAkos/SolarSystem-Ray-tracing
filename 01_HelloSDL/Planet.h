@@ -1,9 +1,9 @@
 #pragma once
 
-#include "SpaceObject.h"
+#include "SceneObject.h"
 #include "Moveable.h"
 
-class Planet : public SpaceObject, public Movable {
+class Planet : public SceneObject, public Movable {
 private:
     float radius;
 

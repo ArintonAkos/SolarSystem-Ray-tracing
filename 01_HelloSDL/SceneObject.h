@@ -2,14 +2,14 @@
 
 #include <glm/glm.hpp>
 
-class SpaceObject {
+class SceneObject {
 protected:
     glm::vec3 mPosition;
     glm::vec3 mRotation;
     glm::vec3 mScale;
 
 public:
-    SpaceObject() : mPosition(0.0f), mRotation(0.0f), mScale(1.0f) {};
+    SceneObject() : mPosition(0.0f), mRotation(0.0f), mScale(1.0f) {};
 
     void setPosition(float x, float y, float z);
     void setRotation(float xAngle, float yAngle, float zAngle);
