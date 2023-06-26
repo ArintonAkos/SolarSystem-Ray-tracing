@@ -88,34 +88,34 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="GLDebugMessageCallback.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Planet.cpp" />
-    <ClCompile Include="PlanetMesh.cpp" />
-    <ClCompile Include="PlanetShader.cpp" />
+    <ClCompile Include="CanvasMesh.cpp" />
+    <ClCompile Include="SceneShader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
     <ClCompile Include="SpaceObject.cpp" />
-    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Sun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Planet.h" />
-    <ClInclude Include="PlanetMesh.h" />
-    <ClInclude Include="PlanetShader.h" />
+    <ClInclude Include="CanvasMesh.h" />
+    <ClInclude Include="SceneShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SpaceObject.h" />
-    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>

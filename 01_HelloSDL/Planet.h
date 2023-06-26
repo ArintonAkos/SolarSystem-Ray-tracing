@@ -2,9 +2,8 @@
 
 #include "SpaceObject.h"
 #include "Moveable.h"
-#include "Drawable.h"
 
-class Planet : public SpaceObject, public Movable, public Drawable {
+class Planet : public SpaceObject, public Movable {
 private:
     float radius;
 

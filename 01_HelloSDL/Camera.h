@@ -40,7 +40,7 @@ public:
     glm::mat4 getViewMatrix() const;
     glm::mat4 getProjectionMatrix() const;
     glm::mat4 getViewProjectionMatrix() const;
-    
+
     void update(float deltaTime);
     void updateView(float relPitch, float relYaw);
 

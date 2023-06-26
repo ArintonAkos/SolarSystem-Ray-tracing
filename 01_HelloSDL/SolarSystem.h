@@ -4,19 +4,22 @@
 
 #include "Planet.h"
 #include "Sun.h"
-#include "PlanetMesh.h"
-#include "PlanetShader.h"
+#include "CanvasMesh.h"
+#include "SceneShader.h"
 #include "Camera.h"
+#include "Canvas.h"
 #include "DataTypes.h"
 
 class SolarSystem
 {
 private:
-    PlanetMesh* planetMesh;
-    PlanetShader* planetShader;
+    CanvasMesh* canvasMesh;
+    SceneShader* sceneShader;
 
     std::vector<DataTypes::Material> materials;
     std::vector<DataTypes::Light> lights;
+
+    Canvas* canvas;
 
     Sun* sun;
     std::vector<Planet*> planets;

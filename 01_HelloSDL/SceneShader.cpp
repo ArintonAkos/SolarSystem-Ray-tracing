@@ -1,17 +1,17 @@
-#include "PlanetShader.h"
+#include "SceneShader.h"
 
-PlanetShader::PlanetShader(const char* vertexShaderSource, const char* fragmentShaderSource) : Shader(vertexShaderSource, fragmentShaderSource) {}
+SceneShader::SceneShader(const char* vertexShaderSource, const char* fragmentShaderSource) : Shader(vertexShaderSource, fragmentShaderSource) {}
 
-PlanetShader::~PlanetShader() {}
+SceneShader::~SceneShader() {}
 
-void PlanetShader::setPlanet(const std::string& name, Planet* planet, int materialIndex) const
+void SceneShader::setPlanet(const std::string& name, Planet* planet, int materialIndex) const
 {
 	setVec3(name + ".position", planet->getPosition());
 	setFloat(name + ".radius", planet->getRadius());
 	setInt(name + ".materialIndex", materialIndex);
 }
 
-void PlanetShader::setCamera(const std::string& name, Camera* camera) const
+void SceneShader::setCamera(const std::string& name, Camera* camera) const
 {
 	setVec3(name + ".position", camera->getEyePosition());
 
@@ -24,7 +24,7 @@ void PlanetShader::setCamera(const std::string& name, Camera* camera) const
 	setFloat(name + ".height", camera->getHeight());
 }
 
-void PlanetShader::setPlanetArr(const std::string& name, std::vector<Planet*> planets) const
+void SceneShader::setPlanetArr(const std::string& name, std::vector<Planet*> planets) const
 {
 	for (size_t i = 0; i < planets.size(); i++)
 	{

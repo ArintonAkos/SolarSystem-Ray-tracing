@@ -4,11 +4,11 @@
 #include "Planet.h"
 #include "Camera.h"
 
-class PlanetShader : public Shader
+class SceneShader : public Shader
 {
 public:
-	PlanetShader(const char* vertexShaderSource, const char* fragmentShaderSource);
-	~PlanetShader();
+	SceneShader(const char* vertexShaderSource, const char* fragmentShaderSource);
+	~SceneShader();
 
 	void setPlanet(const std::string& name, Planet* planet, int materialIndex) const;
 	void setCamera(const std::string& name, Camera* camera) const;

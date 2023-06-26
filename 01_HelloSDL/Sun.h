@@ -3,7 +3,7 @@
 #include "SpaceObject.h"
 #include "Drawable.h"
 
-class Sun : public SpaceObject, public Drawable
+class Sun : public SpaceObject
 {
 public:
     Sun();
