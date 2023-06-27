@@ -1,7 +1,5 @@
 #include "SolarSystem.h"
 
-#include "Sun.h"
-
 SolarSystem::SolarSystem()
 {
     canvasMesh = new CanvasMesh();
@@ -33,7 +31,13 @@ SolarSystem::SolarSystem()
 
     for (int i = 0; i < 8; ++i)
 	{
-        Planet* planet = new Planet(0.5f, (float)i, 10.0f + i * 10.0f);
+        Planet* planet = new Planet(
+            (i + 1) * 0.5f,     // radius
+            0.5f, 			    // orbit speed
+            (float) i,          // orbit angle
+            10.0f + i * 10.0f   // orbit radius
+        );
+
 		addPlanet(planet);
 	}
 }

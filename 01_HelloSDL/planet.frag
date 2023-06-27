@@ -229,11 +229,12 @@ void main()
     Ray ray;
     ray.startPos = camera.position;
     
-    float alpha = tan(camera.fov / 2.0) * (FragPos.x - (camera.width / 2.0)) / (camera.width / 2.0);
-    float beta = tan(camera.fov / 2.0) * ((camera.height / 2.0) - FragPos.y) / (camera.height / 2.0);
-    ray.direction = normalize(camera.frontAxis + alpha * camera.sideAxis + beta * camera.upAxis);
+    float aspect = camera.width / camera.height;
+    float alpha = tan(camera.fov / 2.0) * (gl_FragCoord.x - (camera.width / 2.0)) / (camera.width / 2.0);
+    float beta = tan(camera.fov / 2.0) * ((camera.height / 2.0) - gl_FragCoord.y) / (camera.height / 2.0) / aspect;
+    ray.direction = normalize(camera.frontAxis + alpha * camera.sideAxis - beta * camera.upAxis);
 
-    vec3 result = vec3(ray.direction); // trace(ray);
+    vec3 result = vec3(firstIntersection(ray).t); // trace(ray);
 
     FragColor = vec4(result, 1.0);
 }
