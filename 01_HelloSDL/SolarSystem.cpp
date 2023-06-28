@@ -17,7 +17,7 @@ SolarSystem::SolarSystem()
 
     DataTypes::Light light;
     light.position = glm::vec3(0, 0, 0);
-    light.ambient = glm::vec3(0.2f, 0.2f, 0.2f);
+    light.ambient = glm::vec3(0.9f, 0.9f, 0.9f);
     light.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
     light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
     light.constant = 1.0f;
