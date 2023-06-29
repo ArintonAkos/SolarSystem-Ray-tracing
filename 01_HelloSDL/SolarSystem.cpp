@@ -68,8 +68,6 @@ void SolarSystem::draw(Camera* camera)
     sceneShader->setMaterialArr("materials", materials);
     sceneShader->setInt("materialCount", materials.size());
 
-    /*Planet* baseSun = new Planet(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0);
-    planets.insert(planets.begin(), baseSun);*/
     sceneShader->setPlanetArr("planets", planets);
     sceneShader->setInt("planetCount", planets.size());
 
