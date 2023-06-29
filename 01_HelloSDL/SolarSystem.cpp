@@ -30,20 +30,6 @@ SolarSystem::SolarSystem()
 
     sun = new Sun();
 
-    //for (int i = 0; i < 8; ++i)
-    //{
-    //    Planet* planet = new Planet(
-    //        (i + 1) * 0.5f,     // radius
-    //        0,				  // weight
-    //        0.5f, 			    // orbit speed
-    //        (float)i,          // orbit angle
-    //        10.0f + i * 10.0f,  // orbit radius
-    //        0
-    //    );
-
-    //    addPlanet(planet);
-    //}
-
     planets.push_back(new Mercury());
     planets.push_back(new Venus());
     planets.push_back(new Earth());
