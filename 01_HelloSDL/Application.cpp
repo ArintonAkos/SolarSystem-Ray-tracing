@@ -10,7 +10,8 @@ Application::Application()
     window = nullptr;
 	context = nullptr;
     camera = nullptr;
-    solarSystem = nullptr;
+    aciveSceneIndex = 0;
+    // solarSystem = nullptr;
 }
 
 Application::~Application()
@@ -127,20 +128,24 @@ void Application::initialize_window_context()
 
     camera = new Camera(eye, up, 0.0f, 90.0f);
 
-    solarSystem = new SolarSystem();
+    srand(time(0));
+    for (int i = 0; i < 3; ++i)
+    {
+        scenes.push_back(new Scene());
+    }
 }
 
 void Application::update(float delta_time) 
 {
     camera->update(delta_time);
-    solarSystem->update(delta_time);
+    scenes[aciveSceneIndex]->get_solar_system()->update(delta_time);
 }
 
 void Application::render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    solarSystem->draw(camera);
+    scenes[aciveSceneIndex]->get_solar_system()->draw(camera);
 }
 
 void Application::game_loop() {
@@ -170,6 +175,7 @@ void Application::game_loop() {
                 {
                     case SDL_KEYDOWN:
                         camera->handleKeyDownEvent(e.key);
+                        switch_scenes(e.key);
                         break;
                     case SDL_KEYUP:
                         camera->handleKeyUpEvent(e.key);
@@ -188,6 +194,37 @@ void Application::game_loop() {
         render();
 
         SDL_GL_SwapWindow(window);
+    }
+}
+
+void Application::switch_scenes(const SDL_KeyboardEvent& key)
+{
+    switch (key.keysym.scancode)
+    {
+        case SDL_SCANCODE_LEFT:
+            if (aciveSceneIndex > 0)
+            {
+                --aciveSceneIndex;
+            }
+            else
+            {
+                aciveSceneIndex = scenes.size() - 1;
+            }
+            std::cout << "Left arrow key pressed" << std::endl;
+            break;
+        case SDL_SCANCODE_RIGHT:
+            if (aciveSceneIndex != scenes.size() - 1)
+            {
+                ++aciveSceneIndex;
+            }
+            else
+            {
+                aciveSceneIndex = 0;
+            }
+            std::cout << "Right arrow key pressed" << std::endl;
+            break;
+        default:
+            break;
     }
 }
 
@@ -211,10 +248,15 @@ void Application::exit_instance()
     {
         delete camera;
     }
-
-    if (solarSystem != nullptr)
+    /*
+    if (activeScene != nullptr)
     {
-        delete solarSystem;
+        delete activeScene;
+    }
+    */
+    for (auto& scene : scenes)
+    {
+        delete scene;
     }
 
     SDL_Quit();
