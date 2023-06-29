@@ -10,10 +10,10 @@ struct Material
 };
 
 struct Hit {
-		float t;
-		vec3 position, normal;
-		int mat;
-        int planetIndex;
+    float t;
+    vec3 position, normal;
+    int mat;
+    int planetIndex;
 };
 
 struct Light
@@ -65,7 +65,6 @@ out vec4 FragColor;
 
 uniform sampler2D texture_diffuse;
 
-// uniform Light light;
 uniform Camera camera; 
 
 uniform Planet planets[9];
@@ -125,40 +124,60 @@ Hit firstIntersection(Ray ray)
     return bestHit;
 }
 
-bool shadowIntersect(Ray ray) {	
-	for (int i = 0; i < planetCount; i++) 
-        if (intersect(ray, i).t > 0) return true; 
+bool inShadow(Hit hit, Ray shadowRay, Light light)
+{
+    Hit shadowHit = firstIntersection(shadowRay);
+    if (shadowHit.t > 0)
+    {
+        float distToLight = length(light.position - hit.position);
+        float distToShadowHit = length(shadowHit.position - hit.position);
 
-	return false;
+        if (distToShadowHit < distToLight)
+			return true;
+    }
+
+    return false;
 }
 
 vec3 calculateLighting(Ray ray, Hit hit)
 {
     float epsilon = 0.0001;
-    vec3 outColor = vec3(0.0, 0.0, 0.0);
+    vec3 outColor = vec3(0.0);
 
-    for (int i = 0; i < lightCount; i++) 
-	{
+    for (int i = 0; i < lightCount; i++)
+    {
         Ray shadowRay;
         shadowRay.startPos = hit.position + epsilon * hit.normal;
         shadowRay.direction = normalize(lights[i].position - hit.position);
-                        
+
+        if (inShadow(hit, shadowRay, lights[i]))
+			continue;
+
         float cosTheta = dot(hit.normal, shadowRay.direction);
 
         if (cosTheta > 0.0)
-	    {
+        {
             int materialIndex = planets[hit.planetIndex].materialIndex;
-			outColor += materials[materialIndex].ambient * lights[i].ambient * cosTheta;
-            vec3 halfway = normalize(shadowRay.direction - ray.direction);
+            Material material = materials[materialIndex];
 
+            // Ambient component
+            vec3 ambient = material.ambient * lights[i].ambient;
+
+            // Diffuse component
+            vec3 diffuse = material.diffuse * lights[i].diffuse * cosTheta;
+
+            // Specular component
+            vec3 halfway = normalize(shadowRay.direction - ray.direction);
             float cosDelta = dot(hit.normal, halfway);
-            if (cosDelta > 0)
-				outColor += materials[materialIndex].specular * lights[i].specular * pow(cosDelta, materials[materialIndex].shininess);
-	    }
+            vec3 specular = material.specular * lights[i].specular * pow(cosDelta, material.shininess);
+
+            outColor += ambient + diffuse + specular;
+        }
     }
 
     return outColor;
 }
+
 
 vec3 trace (Ray ray)
 {
@@ -167,9 +186,6 @@ vec3 trace (Ray ray)
 
     for (int d = 0; d < maxDepth; d++)
     {               
-        //if (ray.depth >= maxDepth) 
-          //  break;
-
         Hit hit = firstIntersection(ray);
 
         if (hit.t <= 0.0)
@@ -178,12 +194,11 @@ vec3 trace (Ray ray)
             break;
         }
 
-        Planet hitPlanet = planets[hit.planetIndex];
-        Material hitMaterial = materials[hitPlanet.materialIndex];
-
-        outColor += hitMaterial.ambient * worldAmbient;
-        outColor += calculateLighting(ray, hit);
-                   
+        if (d == 0)
+        {
+            outColor += calculateLighting(ray, hit);
+        }
+           
         ray.startPos = hit.position + epsilon * hit.normal;
         ray.direction = reflect(ray.direction, hit.normal);
     }
