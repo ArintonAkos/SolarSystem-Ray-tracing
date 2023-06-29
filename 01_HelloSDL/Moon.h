@@ -9,11 +9,6 @@ class Planet;
 class Moon : public SpaceObject
 {
 private:
-	glm::vec3 position;
-	float radius;
-	float orbitSpeed;
-	float orbitAngle;
-	float orbitRadius;
 	float orbitTilt;
 
 	Planet* parent;

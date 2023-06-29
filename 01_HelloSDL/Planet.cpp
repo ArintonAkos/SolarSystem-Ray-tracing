@@ -19,3 +19,8 @@ void Planet::add_moon(Moon* moon)
 {
 	moons.push_back(moon);
 }
+
+std::vector<Moon*> Planet::get_moons() const
+{
+	return moons;
+}

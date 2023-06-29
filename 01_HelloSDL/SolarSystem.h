@@ -22,7 +22,7 @@ private:
     Canvas* canvas;
 
     Sun* sun;
-    std::vector<Planet*> planets;
+    std::vector<SpaceObject*> planets;
 
 public:
     SolarSystem();
@@ -33,4 +33,6 @@ public:
     void draw(Camera* camera);
 
     void update(float deltaTime);
+
+    void addMoonsToSpaceObjects();
 };

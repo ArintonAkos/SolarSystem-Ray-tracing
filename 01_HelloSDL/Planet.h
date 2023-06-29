@@ -8,9 +8,6 @@
 
 class Planet : public SpaceObject {
 private:
-    int materialIndex;
-    glm::vec3 position;
-
     float radius;
     float weight;
 
@@ -24,4 +21,6 @@ public:
     float get_weight() const;
 
     void add_moon(Moon* moon);
+
+    std::vector<Moon*> Planet::get_moons() const;
 };

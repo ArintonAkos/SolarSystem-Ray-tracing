@@ -38,6 +38,8 @@ SolarSystem::SolarSystem()
     planets.push_back(new Saturn());
     planets.push_back(new Uranus());
     planets.push_back(new Neptune());
+
+    addMoonsToSpaceObjects();
 }
 
 SolarSystem::~SolarSystem()
@@ -85,5 +87,23 @@ void SolarSystem::update(float deltaTime)
     for (auto& planet : planets)
     {
         planet->move(deltaTime);
+    }
+}
+
+void SolarSystem::addMoonsToSpaceObjects()
+{
+    std::vector<SpaceObject*> moons;
+
+    for (const auto& planet : planets)
+    {
+        for (const auto& moon : ((Planet*)planet)->get_moons())
+        {
+			moons.push_back(moon);
+		}
+	}
+
+    for (const auto& moon : moons)
+    {
+        planets.push_back(moon);
     }
 }
