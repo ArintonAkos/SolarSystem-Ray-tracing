@@ -27,7 +27,7 @@ private:
     std::vector<SpaceObject*> planets;
 
 public:
-    SolarSystem(std::vector<Planet*> planets);
+    SolarSystem(std::vector<SpaceObject*> planets);
     ~SolarSystem();
 
     void addPlanet(Planet* planet);

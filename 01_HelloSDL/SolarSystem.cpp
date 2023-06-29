@@ -1,7 +1,7 @@
 #include "SolarSystem.h"
 #include "Planets.h"
 
-SolarSystem::SolarSystem(std::vector<Planet*> planets)
+SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
 {
     canvasMesh = new CanvasMesh();
     sceneShader = new SceneShader("planet.vert", "planet.frag");

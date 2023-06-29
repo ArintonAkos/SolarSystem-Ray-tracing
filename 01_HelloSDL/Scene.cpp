@@ -4,7 +4,7 @@
 
 Scene::Scene(uint32_t nrPlanets)
 {
-	std::vector<Planet*> planets;
+	std::vector<SpaceObject*> planets;
 	planets.push_back(new Mercury());
 	planets.push_back(new Venus());
 	planets.push_back(new Earth());
@@ -20,7 +20,7 @@ Scene::Scene(uint32_t nrPlanets)
 	}
 	else
 	{
-		std::vector<Planet*> randomPlanets;
+		std::vector<SpaceObject*> randomPlanets;
 		std::vector<bool> usedIndexes(8, true);
 
 		for (int i = 0; i < nrPlanets; i++)
