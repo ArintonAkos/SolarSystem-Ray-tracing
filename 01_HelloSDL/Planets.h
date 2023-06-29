@@ -20,7 +20,7 @@ public:
 class Earth : public Planet {
 public:
     Earth(int materialIndex = 0) : Planet(0.731f * sizeScaleFactor, 5.972f, 29.78f * speedScaleFactor, 0.0f, 129.6f, materialIndex) {
-        this->add_moon(new Moon(0.2724f, 1.022f, 0.0f, 384.4f, this, 0.0549f));
+        this->add_moon(new Moon(0.2724f * sizeScaleFactor , 102.2f * speedScaleFactor, 0.0f, 38.4f, this, 0.3f));
     }
 
     ~Earth() {}
@@ -28,8 +28,8 @@ public:
 class Mars : public Planet {
 public:
     Mars(int materialIndex = 0) : Planet(0.921f * sizeScaleFactor, 0.641f, 24.07f * speedScaleFactor, 0.0f, 168.9f, materialIndex) {
-        moons.push_back(new Moon(0.0124f, 24.08f, 0.0f, 9.378f, this, 0.015f)); // Phobos
-        moons.push_back(new Moon(0.0062f, 7.67f, 0.0f, 23.458f, this, 0.002f)); // Deimos
+        moons.push_back(new Moon(0.124f * sizeScaleFactor, 240.08f * speedScaleFactor, 0.0f, 9.378f, this, 0.3f)); // Phobos
+        moons.push_back(new Moon(0.102f * sizeScaleFactor, 76.67f * speedScaleFactor, 0.0f, 23.458f, this, 0.4f)); // Deimos
     }
 
     ~Mars() {}

@@ -1,8 +1,8 @@
 #include "Moon.h"
 #include "Planet.h"
 
-Moon::Moon(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, Planet* parent, float orbitTilt)
-	: position(0.0f)
+Moon::Moon(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, Planet* parent, float orbitTilt) : 
+	SpaceObject(glm::vec3(0.0f), radius, parent->get_material_index(), orbitSpeed, orbitAngle, orbitRadius)
 {
 	this->radius = radius;
 	this->orbitSpeed = orbitSpeed;
@@ -14,27 +14,12 @@ Moon::Moon(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, 
 
 Moon::~Moon() {}
 
-void Moon::set_radius(float radius)
-{
-	this->radius = radius;
-}
-
-float Moon::get_radius() const
-{
-	return radius;
-}
-
-glm::vec3 Moon::get_position() const
-{
-	return position;
-}
-
 void Moon::move(float deltaTime)
 {
-	orbitAngle += orbitSpeed * deltaTime;
+	SpaceObject::move(deltaTime);
 	const glm::vec3 parentPosition = parent->get_position();
 
-	position.x = parentPosition.x + orbitRadius * cos(orbitAngle);
+	position.x += parentPosition.x;
 	position.y = parentPosition.y + orbitTilt * orbitRadius * sin(2 * orbitAngle);
-	position.z = parentPosition.z + orbitRadius * sin(orbitAngle);
+	position.z += parentPosition.z;
 }

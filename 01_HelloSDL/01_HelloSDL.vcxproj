@@ -96,10 +96,12 @@
     <ClCompile Include="Moon.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="CanvasMesh.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneShader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
     <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="SpaceObject.cpp" />
     <ClCompile Include="Sun.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,11 +116,13 @@
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="CanvasMesh.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Planets.h" />
     <ClInclude Include="SceneShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="SpaceObject.h" />
     <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,7 @@
 #include "SolarSystem.h"
 #include "Planets.h"
 
-
-SolarSystem::SolarSystem()
+SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
 {
     canvasMesh = new CanvasMesh();
     sceneShader = new SceneShader("planet.vert", "planet.frag");
@@ -13,15 +12,15 @@ SolarSystem::SolarSystem()
 
     DataTypes::Material material;
     material.ambient = glm::vec3(0.2f, 0.2f, 0.2f);
-    material.diffuse = glm::vec3(0.5f, 0.0f, 0.0f);
+    material.diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
     material.specular = glm::vec3(1.0f, 1.0f, 1.0f);
     material.shininess = 0.5f;
 
     DataTypes::Light light;
     light.position = glm::vec3(0, 0, 0);
-    light.ambient = glm::vec3(0.4f, 0.4f, 0.4f);
-    light.diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
-    light.specular = glm::vec3(0.8f, 0.8f, 0.8f);
+    light.ambient = glm::vec3(0.9f, 0.9f, 0.9f);
+    light.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
+    light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
     light.constant = 1.0f;
     light.linear = 0.09f;
     light.quadratic = 0.032f;
@@ -30,15 +29,9 @@ SolarSystem::SolarSystem()
     lights.push_back(light);
 
     sun = new Sun();
+    this->planets = planets;
 
-    planets.push_back(new Mercury());
-    planets.push_back(new Venus());
-    planets.push_back(new Earth());
-    planets.push_back(new Mars());
-    planets.push_back(new Jupiter());
-    planets.push_back(new Saturn());
-    planets.push_back(new Uranus());
-    planets.push_back(new Neptune());
+    addMoonsToSpaceObjects();
 }
 
 SolarSystem::~SolarSystem()
@@ -79,8 +72,6 @@ void SolarSystem::draw(Camera* camera)
     sceneShader->setMat4("view", camera->getViewMatrix());
     sceneShader->setMat4("projection", camera->getProjectionMatrix());
 
-   
-
     canvas->draw();
 }
 
@@ -92,6 +83,24 @@ void SolarSystem::update(float deltaTime)
     }
 }
 
+void SolarSystem::addMoonsToSpaceObjects()
+{
+    std::vector<SpaceObject*> moons;
+
+    for (const auto& planet : planets)
+    {
+        for (const auto& moon : ((Planet*)planet)->get_moons())
+        {
+			moons.push_back(moon);
+		}
+	}
+
+    for (const auto& moon : moons)
+    {
+        planets.push_back(moon);
+    }
+}
+
 void SolarSystem::handleKeyUpEvent(const SDL_KeyboardEvent& key)
 {
     switch (key.keysym.scancode)
@@ -100,6 +109,7 @@ void SolarSystem::handleKeyUpEvent(const SDL_KeyboardEvent& key)
             if (maxDepth > 1)
                 maxDepth--;
             break;
+
         case SDL_SCANCODE_M:
 			if (maxDepth < 30)
 				maxDepth++;
