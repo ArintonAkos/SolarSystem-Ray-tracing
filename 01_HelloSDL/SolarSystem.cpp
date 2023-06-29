@@ -1,4 +1,5 @@
 #include "SolarSystem.h"
+#include "Planets.h"
 
 SolarSystem::SolarSystem()
 {
@@ -29,17 +30,28 @@ SolarSystem::SolarSystem()
 
     sun = new Sun();
 
-    for (int i = 0; i < 8; ++i)
-	{
-        Planet* planet = new Planet(
-            (i + 1) * 0.5f,     // radius
-            0.5f, 			    // orbit speed
-            (float) i,          // orbit angle
-            10.0f + i * 10.0f   // orbit radius
-        );
+    //for (int i = 0; i < 8; ++i)
+    //{
+    //    Planet* planet = new Planet(
+    //        (i + 1) * 0.5f,     // radius
+    //        0,				  // weight
+    //        0.5f, 			    // orbit speed
+    //        (float)i,          // orbit angle
+    //        10.0f + i * 10.0f,  // orbit radius
+    //        0
+    //    );
 
-		addPlanet(planet);
-	}
+    //    addPlanet(planet);
+    //}
+
+    planets.push_back(new Mercury());
+    planets.push_back(new Venus());
+    planets.push_back(new Earth());
+    planets.push_back(new Mars());
+    planets.push_back(new Jupiter());
+    planets.push_back(new Saturn());
+    planets.push_back(new Uranus());
+    planets.push_back(new Neptune());
 }
 
 SolarSystem::~SolarSystem()
@@ -66,10 +78,12 @@ void SolarSystem::draw(Camera* camera)
     
     sceneShader->setLightArr("lights", lights);
     sceneShader->setInt("lightCount", lights.size());
-
+    
     sceneShader->setMaterialArr("materials", materials);
     sceneShader->setInt("materialCount", materials.size());
 
+    /*Planet* baseSun = new Planet(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0);
+    planets.insert(planets.begin(), baseSun);*/
     sceneShader->setPlanetArr("planets", planets);
     sceneShader->setInt("planetCount", planets.size());
 

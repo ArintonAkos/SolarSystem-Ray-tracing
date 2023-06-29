@@ -80,6 +80,9 @@
       <Filter>Application</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Moon.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -126,6 +129,12 @@
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Moon.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Planets.h">
+      <Filter>View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

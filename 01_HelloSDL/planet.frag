@@ -68,13 +68,13 @@ uniform sampler2D texture_diffuse;
 // uniform Light light;
 uniform Camera camera; 
 
-uniform Planet planets[9];
+uniform Planet planets[15];
 uniform int planetCount;  
 
 uniform Light lights[4];
 uniform int lightCount;
 
-uniform Material materials[9];
+uniform Material materials[15];
 uniform int materialCount;
 
 uniform int maxDepth = 10;

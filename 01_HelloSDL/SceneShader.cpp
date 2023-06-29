@@ -6,8 +6,8 @@ SceneShader::~SceneShader() {}
 
 void SceneShader::setPlanet(const std::string& name, Planet* planet, int materialIndex) const
 {
-	setVec3(name + ".position", planet->getPosition());
-	setFloat(name + ".radius", planet->getRadius());
+	setVec3(name + ".position", planet->get_position());
+	setFloat(name + ".radius", planet->get_radius());
 	setInt(name + ".materialIndex", materialIndex);
 }
 
@@ -29,6 +29,6 @@ void SceneShader::setPlanetArr(const std::string& name, std::vector<Planet*> pla
 	for (size_t i = 0; i < planets.size(); i++)
 	{
 		std::string varName = name + "[" + std::to_string(i) + "]";
-		setPlanet(varName, planets[i], 0); // TODO: material index
+		setPlanet(varName, planets[i], planets[i]->get_material_index());
 	}
 }

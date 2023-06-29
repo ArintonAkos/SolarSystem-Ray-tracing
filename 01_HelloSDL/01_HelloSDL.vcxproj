@@ -93,6 +93,7 @@
     <ClCompile Include="GLDebugMessageCallback.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Moon.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="CanvasMesh.cpp" />
     <ClCompile Include="SceneShader.cpp" />
@@ -109,9 +110,11 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Moon.h" />
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="CanvasMesh.h" />
+    <ClInclude Include="Planets.h" />
     <ClInclude Include="SceneShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SolarSystem.h" />

@@ -9,7 +9,7 @@ Camera::Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) : eye(e
     moveForward = moveRight = moveUp = 0;
 
     setViewMatrix(eye, worldUp, pitch, yaw);
-    setProjectionMatrix(glm::radians(60.0f), 640.0f, 480.0f, 0.01f, 1000.0f);
+    setProjectionMatrix(glm::radians(70.0f), 1280.0f, 960.0f, 0.01f, 1000.0f);
 }
 
 Camera::~Camera(void) {}
