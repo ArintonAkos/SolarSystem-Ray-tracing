@@ -30,6 +30,34 @@ SolarSystem::SolarSystem(std::vector<Planet*> planets)
 
     sun = new Sun();
     this->planets = planets;
+    //        0
+    //    );
+
+    //    addPlanet(planet);
+    //}
+
+    planets.push_back(new Mercury());
+    planets.push_back(new Venus());
+    planets.push_back(new Earth());
+    planets.push_back(new Mars());
+    planets.push_back(new Jupiter());
+    planets.push_back(new Saturn());
+    planets.push_back(new Uranus());
+    planets.push_back(new Neptune());
+    //        0
+    //    );
+
+    //    addPlanet(planet);
+    //}
+
+    planets.push_back(new Mercury());
+    planets.push_back(new Venus());
+    planets.push_back(new Earth());
+    planets.push_back(new Mars());
+    planets.push_back(new Jupiter());
+    planets.push_back(new Saturn());
+    planets.push_back(new Uranus());
+    planets.push_back(new Neptune());
 }
 
 SolarSystem::~SolarSystem()
