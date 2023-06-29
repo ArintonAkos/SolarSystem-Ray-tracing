@@ -72,7 +72,7 @@ void Application::initialize_graphical_context()
 
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-    window = SDL_CreateWindow("Solarsys", 100, 100, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("Solarsys", 100, 100, 1280, 960, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (window == nullptr)
     {
         throw std::runtime_error("Error initializing SDL window");
@@ -123,10 +123,10 @@ void Application::initialize_window_context()
 
     glEnable(GL_DEPTH_TEST);
 
-    glm::vec3 eye = glm::vec3(0.0f, 0.0f, -3.0f);
+    glm::vec3 eye = glm::vec3(0.0f, 500.0f, 0.0f);
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    camera = new Camera(eye, up, 0.0f, 90.0f);
+    camera = new Camera(eye, up, -89.0f, 90.0f);
 
     srand(time(0));
     for (int i = 0; i < 3; ++i)
