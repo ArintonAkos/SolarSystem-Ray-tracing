@@ -122,7 +122,7 @@ void Application::initialize_window_context()
 
     glEnable(GL_DEPTH_TEST);
 
-    glm::vec3 eye = glm::vec3(0.0f, 500.0f, 0.0f);
+    glm::vec3 eye = glm::vec3(0.0f, 250.0f, 0.0f);
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
     camera = new Camera(eye, up, -89.0f, 90.0f);
