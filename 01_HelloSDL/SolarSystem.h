@@ -1,8 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <ctime>
 
 #include "Planet.h"
+#include "Planets.h"
 #include "Sun.h"
 #include "CanvasMesh.h"
 #include "SceneShader.h"
@@ -25,7 +27,7 @@ private:
     std::vector<SpaceObject*> planets;
 
 public:
-    SolarSystem();
+    SolarSystem(std::vector<Planet*> planets);
     ~SolarSystem();
 
     void addPlanet(Planet* planet);
