@@ -24,6 +24,8 @@ private:
     Sun* sun;
     std::vector<Planet*> planets;
 
+    int maxDepth;
+
 public:
     SolarSystem();
     ~SolarSystem();
@@ -33,4 +35,6 @@ public:
     void draw(Camera* camera);
 
     void update(float deltaTime);
+
+    void handleKeyUpEvent(const SDL_KeyboardEvent& key);
 };

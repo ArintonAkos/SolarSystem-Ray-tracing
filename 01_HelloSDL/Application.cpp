@@ -172,7 +172,14 @@ void Application::game_loop() {
                         camera->handleKeyDownEvent(e.key);
                         break;
                     case SDL_KEYUP:
-                        camera->handleKeyUpEvent(e.key);
+                        if (e.key.keysym.scancode == SDL_SCANCODE_N|| e.key.keysym.scancode == SDL_SCANCODE_M)
+                        {
+                            solarSystem->handleKeyUpEvent(e.key);
+                        } 
+                        else
+                        {
+                            camera->handleKeyUpEvent(e.key);
+                        }
                         break;
                     case SDL_MOUSEMOTION:
                         camera->handleMouseMovedEvent(e.motion);

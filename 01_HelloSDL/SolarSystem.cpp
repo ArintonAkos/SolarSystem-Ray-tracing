@@ -1,4 +1,6 @@
 #include "SolarSystem.h"
+#include <iostream>
+
 
 SolarSystem::SolarSystem()
 {
@@ -11,15 +13,15 @@ SolarSystem::SolarSystem()
 
     DataTypes::Material material;
     material.ambient = glm::vec3(0.2f, 0.2f, 0.2f);
-    material.diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
+    material.diffuse = glm::vec3(0.5f, 0.0f, 0.0f);
     material.specular = glm::vec3(1.0f, 1.0f, 1.0f);
     material.shininess = 0.5f;
 
     DataTypes::Light light;
     light.position = glm::vec3(0, 0, 0);
-    light.ambient = glm::vec3(0.9f, 0.9f, 0.9f);
-    light.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
-    light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+    light.ambient = glm::vec3(0.4f, 0.4f, 0.4f);
+    light.diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
+    light.specular = glm::vec3(0.8f, 0.8f, 0.8f);
     light.constant = 1.0f;
     light.linear = 0.09f;
     light.quadratic = 0.032f;
@@ -28,6 +30,8 @@ SolarSystem::SolarSystem()
     lights.push_back(light);
 
     sun = new Sun();
+
+    maxDepth = 8;
 
     for (int i = 0; i < 8; ++i)
 	{
@@ -72,12 +76,15 @@ void SolarSystem::draw(Camera* camera)
 
     sceneShader->setPlanetArr("planets", planets);
     sceneShader->setInt("planetCount", planets.size());
+    sceneShader->setInt("maxDepth", maxDepth);
 
     canvas->allignToCamera(camera);
 
     sceneShader->setMat4("model", canvas->getTransform());
     sceneShader->setMat4("view", camera->getViewMatrix());
     sceneShader->setMat4("projection", camera->getProjectionMatrix());
+
+   
 
     canvas->draw();
 }
@@ -89,3 +96,23 @@ void SolarSystem::update(float deltaTime)
         planet->move(deltaTime);
     }
 }
+
+void SolarSystem::handleKeyUpEvent(const SDL_KeyboardEvent& key)
+{
+    switch (key.keysym.scancode)
+    {
+        case SDL_SCANCODE_N:
+            if (maxDepth > 1)
+                maxDepth--;
+            std::cout << maxDepth<< std::endl;
+            break;
+        case SDL_SCANCODE_M:
+			if (maxDepth < 30)
+				maxDepth++;
+            std::cout << maxDepth << std::endl;
+			break;
+        default:
+            break;
+    }
+}
+

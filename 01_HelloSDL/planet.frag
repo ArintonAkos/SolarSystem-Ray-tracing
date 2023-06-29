@@ -76,7 +76,7 @@ uniform int lightCount;
 uniform Material materials[9];
 uniform int materialCount;
 
-uniform int maxDepth = 10;
+uniform int maxDepth;
 uniform vec3 worldAmbient;
 
 Hit intersect (Ray ray, int planetIndex)
