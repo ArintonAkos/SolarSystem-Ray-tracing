@@ -24,7 +24,7 @@ private:
     Sun* sun;
     std::vector<Planet*> planets;
 
-    int maxDepth;
+    int maxDepth = 5;
 
 public:
     SolarSystem();
