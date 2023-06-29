@@ -129,9 +129,10 @@ void Application::initialize_window_context()
     camera = new Camera(eye, up, -89.0f, 90.0f);
 
     srand(time(0));
+    scenes.push_back(new Scene());
     for (int i = 0; i < 3; ++i)
     {
-        scenes.push_back(new Scene());
+        scenes.push_back(new Scene(1 + rand() % 8));
     }
 }
 

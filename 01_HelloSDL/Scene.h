@@ -10,10 +10,8 @@ class Scene
 private:
 	SolarSystem* solarSystem;
 
-	// std::vector<Planet*> planets;
-
 public:
-	Scene();
+	Scene(uint32_t nrPlanets = 8);
 	~Scene();
 
 	void addPlanet(Planet* planet);

@@ -17,8 +17,6 @@ private:
     Camera* camera;
     SDL_Window* window;
     SDL_GLContext context;
-    // SolarSystem* solarSystem;
-    // Scene* activeScene;
 
     uint32_t aciveSceneIndex;
 

@@ -1,7 +1,7 @@
 #include "SolarSystem.h"
 #include "Planets.h"
 
-SolarSystem::SolarSystem()
+SolarSystem::SolarSystem(std::vector<Planet*> planets)
 {
     canvasMesh = new CanvasMesh();
     sceneShader = new SceneShader("planet.vert", "planet.frag");
@@ -29,24 +29,7 @@ SolarSystem::SolarSystem()
     lights.push_back(light);
 
     sun = new Sun();
-
-    for (int i = 0; i < 8; ++i)
-	{
-        Planet* planet = new Planet(
-            (i + 1) * 0.5f,     // radius
-            0.5f, 			    // orbit speed
-            (float) i,          // orbit angle
-            10.0f + i * 10.0f   // orbit radius
-        );
-
-    planets.push_back(new Mercury());
-    planets.push_back(new Venus());
-    planets.push_back(new Earth());
-    planets.push_back(new Mars());
-    planets.push_back(new Jupiter());
-    planets.push_back(new Saturn());
-    planets.push_back(new Uranus());
-    planets.push_back(new Neptune());
+    this->planets = planets;
 }
 
 SolarSystem::~SolarSystem()

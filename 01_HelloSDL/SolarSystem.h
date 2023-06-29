@@ -4,6 +4,7 @@
 #include <ctime>
 
 #include "Planet.h"
+#include "Planets.h"
 #include "Sun.h"
 #include "CanvasMesh.h"
 #include "SceneShader.h"
@@ -26,7 +27,7 @@ private:
     std::vector<Planet*> planets;
 
 public:
-    SolarSystem();
+    SolarSystem(std::vector<Planet*> planets);
     ~SolarSystem();
 
     void addPlanet(Planet* planet);
