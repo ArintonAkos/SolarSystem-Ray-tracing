@@ -4,7 +4,7 @@
 
 Camera::Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) : eye(eye), worldUp(worldUp), pitch(pitch), yaw(yaw)
 {
-    speed = 10.0f;
+    speed = 30.0f;
     sensitivity = 0.1f;
     moveForward = moveRight = moveUp = 0;
 
