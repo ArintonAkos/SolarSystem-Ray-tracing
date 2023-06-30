@@ -134,17 +134,39 @@ bool inShadow(Hit hit, Ray shadowRay, Light light)
         float distToLight = length(light.position - hit.position);
         float distToShadowHit = length(shadowHit.position - hit.position);
 
-        if (distToShadowHit < distToLight)
+        if (shadowHit.planetIndex > 0 && distToShadowHit < distToLight)
 			return true;
     }
 
     return false;
 }
 
+vec2 calculateSphereTextCoords(Hit hit)
+{
+    int textureIndex = planets[hit.planetIndex].textureIndex;
+    
+    if (textureIndex <= -1)
+	{
+        return vec2(0.0);
+    }
+
+	vec3 hitNormal = hit.normal * planets[hit.planetIndex].radius;
+    float u = 0.5 + atan(hitNormal.z, hitNormal.x) / (2.0 * M_PI);
+    float v = 0.5 - asin(hitNormal.y / planets[hit.planetIndex].radius) / M_PI;
+    
+    return vec2(u, v);
+}
+
 vec3 calculateLighting(Ray ray, Hit hit)
 {
-    float epsilon = 0.0001;
+    float epsilon = 0.1;
     vec3 outColor = vec3(0.0);
+
+    if (hit.planetIndex == 0)
+    {
+        vec2 sphereTextCoords = calculateSphereTextCoords(hit);
+        return texture(textures[0], sphereTextCoords).rgb * 1.5;
+    }
 
     for (int i = 0; i < lightCount; i++)
     {
@@ -170,11 +192,7 @@ vec3 calculateLighting(Ray ray, Hit hit)
             int textureIndex = planets[hit.planetIndex].textureIndex;
             if (textureIndex > -1)
 			{
-				vec3 hitNormal = hit.normal * planets[hit.planetIndex].radius;
-                float u = 0.5 + atan(hitNormal.z, hitNormal.x) / (2.0 * M_PI);
-                float v = 0.5 - asin(hitNormal.y / planets[hit.planetIndex].radius) / M_PI;
-                vec2 sphereTextCoords = vec2(u, v);
-
+                vec2 sphereTextCoords = calculateSphereTextCoords(hit);
                 diffuse = texture(textures[textureIndex], sphereTextCoords).rgb * lights[i].diffuse * cosTheta;
 			}
             else
@@ -197,7 +215,7 @@ vec3 calculateLighting(Ray ray, Hit hit)
 
 vec3 trace (Ray ray)
 {
-    const float epsilon = 0.001;
+    const float epsilon = 0.1;
     vec3 color = vec3(0.0, 0.0, 0.0);
 
     vec3 averageLightPosition = vec3(0.0);
@@ -223,6 +241,10 @@ vec3 trace (Ray ray)
             float distance = length(camera.position - averageLightPosition);
             float distanceFactor = 1.0 / ( max (1.0, ( distance / 150 )));
             color += distanceFactor * calculateLighting(ray, hit);
+        }
+        else if (hit.planetIndex == 0)
+        {
+            break;
         }
         
         //visszaverodes a bolygokrol

@@ -8,7 +8,6 @@
 
 class Planet : public SpaceObject {
 private:
-    float radius;
     float weight;
 
 protected:

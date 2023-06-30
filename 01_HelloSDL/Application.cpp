@@ -71,7 +71,7 @@ void Application::initialize_graphical_context()
 
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-    window = SDL_CreateWindow("Solarsys", 100, 100, 1280, 960, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("Solarsys", 100, 100, 1024, 768, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (window == nullptr)
     {
         throw std::runtime_error("Error initializing SDL window");
@@ -218,8 +218,6 @@ void Application::switch_scenes(const SDL_KeyboardEvent& key)
                 aciveSceneIndex = scenes.size() - 1;
             }
 
-            std::cout << "Left arrow key pressed" << std::endl;
-
             break;
         case SDL_SCANCODE_RIGHT:
             if (aciveSceneIndex != scenes.size() - 1)
@@ -230,8 +228,6 @@ void Application::switch_scenes(const SDL_KeyboardEvent& key)
             {
                 aciveSceneIndex = 0;
             }
-
-            std::cout << "Right arrow key pressed" << std::endl;
 
             break;
         default:

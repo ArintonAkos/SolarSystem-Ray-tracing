@@ -38,7 +38,6 @@ SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
     lights.push_back(light1);
     lights.push_back(light2);
 
-    sun = new Sun();
     this->planets = planets;
 
     addMoonsToSpaceObjects();
@@ -97,9 +96,9 @@ void SolarSystem::addMoonsToSpaceObjects()
 {
     std::vector<SpaceObject*> moons;
 
-    for (const auto& planet : planets)
+    for (int i = 1; i < planets.size(); ++i)
     {
-        for (const auto& moon : ((Planet*)planet)->get_moons())
+        for (const auto& moon : ((Planet*)planets[i])->get_moons())
         {
 			moons.push_back(moon);
 		}

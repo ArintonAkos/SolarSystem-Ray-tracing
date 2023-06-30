@@ -1,11 +1,11 @@
 #pragma once
 
-#include "SceneObject.h"
-#include "Drawable.h"
+#include <glm/glm.hpp>
+#include "SpaceObject.h"
 
-class Sun : public SceneObject
+class cSun : public SpaceObject
 {
 public:
-    Sun();
-    ~Sun();
+    cSun(float radius, float weight, int materialIndex, int textureIndex);
+    ~cSun();
 };

@@ -1,9 +1,16 @@
 #pragma once
 
+#include "Sun.h"
 #include "Planet.h"
 
 const float sizeScaleFactor = 5.0f;
 const float speedScaleFactor = 0.01f;
+
+class Sun : public cSun {
+public:
+    Sun(int materialIndex = 0, int textureIndex = -1) : cSun(10.0f * sizeScaleFactor, 3000.0f, materialIndex, textureIndex) {}
+    ~Sun() {}
+};
 
 class Mercury : public Planet {
 public:
