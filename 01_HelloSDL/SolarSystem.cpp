@@ -11,22 +11,32 @@ SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
     canvas->attach_shader(sceneShader);
 
     DataTypes::Material material;
-    material.ambient = glm::vec3(0.2f, 0.2f, 0.2f);
-    material.diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
-    material.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+    material.ambient = glm::vec3(0.7f, 0.8f, 0.9f);
+    material.diffuse = glm::vec3(0.2f, 0.4f, 0.6f);
+    material.specular = glm::vec3(0.9f, 0.9f, 0.9f);
     material.shininess = 0.5f;
 
-    DataTypes::Light light;
-    light.position = glm::vec3(0, 0, 0);
-    light.ambient = glm::vec3(0.9f, 0.9f, 0.9f);
-    light.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
-    light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-    light.constant = 1.0f;
-    light.linear = 0.09f;
-    light.quadratic = 0.032f;
+    DataTypes::Light light1;
+    light1.position = glm::vec3(0, 0, 0);
+    light1.ambient = glm::vec3(0.8f, 0.9f, 0.9f);
+    light1.diffuse = glm::vec3(0.4f, 0.6f, 0.6f);
+    light1.specular = glm::vec3(0.9f, 0.9f, 0.9f);
+    light1.constant = 1.0f;
+    light1.linear = 0.09f;
+    light1.quadratic = 0.032f;
+
+    DataTypes::Light light2;
+    light2.position = glm::vec3(0.1, 0.1, 0.1);
+    light2.ambient = glm::vec3(0.8f, 0.9f, 0.9f);
+    light2.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
+    light2.specular = glm::vec3(0.9f, 0.9f, 0.9f);
+    light2.constant = 1.0f;
+    light2.linear = 0.09f;
+    light2.quadratic = 0.032f;
 
     materials.push_back(material);
-    lights.push_back(light);
+    lights.push_back(light1);
+    lights.push_back(light2);
 
     sun = new Sun();
     this->planets = planets;
