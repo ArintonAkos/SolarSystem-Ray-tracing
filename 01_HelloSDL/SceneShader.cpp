@@ -4,11 +4,12 @@ SceneShader::SceneShader(const char* vertexShaderSource, const char* fragmentSha
 
 SceneShader::~SceneShader() {}
 
-void SceneShader::setPlanet(const std::string& name, SpaceObject* planet, int materialIndex) const
+void SceneShader::setPlanet(const std::string& name, SpaceObject* planet) const
 {
 	setVec3(name + ".position", planet->get_position());
 	setFloat(name + ".radius", planet->get_radius());
-	setInt(name + ".materialIndex", materialIndex);
+	setInt(name + ".materialIndex", planet->get_material_index());
+	setInt(name + ".textureIndex", planet->get_texture_index());
 }
 
 void SceneShader::setCamera(const std::string& name, Camera* camera) const
@@ -29,6 +30,6 @@ void SceneShader::setPlanetArr(const std::string& name, std::vector<SpaceObject*
 	for (size_t i = 0; i < planets.size(); i++)
 	{
 		std::string varName = name + "[" + std::to_string(i) + "]";
-		setPlanet(varName, planets[i], planets[i]->get_material_index());
+		setPlanet(varName, planets[i]);
 	}
 }

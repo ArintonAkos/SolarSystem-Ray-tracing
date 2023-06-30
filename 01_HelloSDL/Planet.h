@@ -15,7 +15,7 @@ protected:
     std::vector<Moon*> moons;
 
 public:
-    Planet(float radius, float weight, float orbitSpeed, float orbitAngle, float orbitRadius, int materialIndex);
+    Planet(float radius, float weight, float orbitSpeed, float orbitAngle, float orbitRadius, int materialIndex, int textureIndex);
     ~Planet();
 
     float get_weight() const;

@@ -1,5 +1,7 @@
 #version 460 core
 
+#define M_PI 3.14159265359
+
 struct Material
 {
     vec3 ambient;
@@ -55,6 +57,7 @@ struct Planet
     float radius;
 
     int materialIndex;
+    int textureIndex;
 };
 
 in vec3 Normal;
@@ -63,12 +66,12 @@ in vec2 TexCoords;
 
 out vec4 FragColor;
 
-uniform sampler2D texture_diffuse;
-
 uniform Camera camera; 
 
 uniform Planet planets[15];
 uniform int planetCount;  
+
+uniform sampler2D textures[15];
 
 uniform Light lights[4];
 uniform int lightCount;
@@ -157,14 +160,28 @@ vec3 calculateLighting(Ray ray, Hit hit)
 
         if (cosTheta > 0.0)
         {
-            int materialIndex = planets[hit.planetIndex].materialIndex;
-            Material material = materials[materialIndex];
+            Material material = materials[planets[hit.planetIndex].materialIndex];
 
             // Ambient component
             vec3 ambient = material.ambient * lights[i].ambient;
 
             // Diffuse component
-            vec3 diffuse = material.diffuse * lights[i].diffuse * cosTheta;
+            vec3 diffuse = vec3(0.0);
+            
+            int textureIndex = planets[hit.planetIndex].textureIndex;
+            if (textureIndex > -1)
+			{
+				vec3 hitNormal = hit.normal * planets[hit.planetIndex].radius;
+                float u = 0.5 + atan(hitNormal.z, hitNormal.x) / (2.0 * M_PI);
+                float v = 0.5 - asin(hitNormal.y / planets[hit.planetIndex].radius) / M_PI;
+                vec2 sphereTextCoords = vec2(u, v);
+
+                diffuse = texture(textures[textureIndex], sphereTextCoords).rgb * lights[i].diffuse * cosTheta;
+			}
+            else
+            {
+                diffuse = material.diffuse * lights[i].diffuse * cosTheta;
+            }
 
             // Specular component
             vec3 halfway = normalize(shadowRay.direction - ray.direction);

@@ -138,6 +138,9 @@ void Mesh::draw(Shader *shader)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+
+        std::string varName = "textures[" + std::to_string(i) + "]";
+        shader->setInt(varName, i);
 	}
 
     glBindVertexArray(vertexArrayObject);

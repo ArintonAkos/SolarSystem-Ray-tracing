@@ -14,6 +14,10 @@ namespace DataTypes {
     struct Texture {
         uint32_t id;
         std::string type;
+
+        Texture() : id(0), type("") {}
+        Texture(std::string type) : id(0), type(type) {}
+        Texture(uint32_t id, std::string type) : id(id), type(type) {}
     };
 
     struct Material {

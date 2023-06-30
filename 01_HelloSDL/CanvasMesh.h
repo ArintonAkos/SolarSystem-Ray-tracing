@@ -7,6 +7,4 @@ class CanvasMesh : public Mesh
 public:
 	CanvasMesh();
 	~CanvasMesh();
-
-	void draw(Shader* shader) override;
 };

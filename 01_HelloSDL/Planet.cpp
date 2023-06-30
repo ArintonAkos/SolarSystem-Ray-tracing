@@ -1,8 +1,8 @@
 #include "Planet.h"
 #include "DataTypes.h"
 
-Planet::Planet(float radius, float weight, float orbitSpeed, float orbitAngle, float orbitRadius, int materialIndex) :
-	SpaceObject(glm::vec3(0.0f), radius, materialIndex, orbitSpeed, orbitAngle, orbitRadius)
+Planet::Planet(float radius, float weight, float orbitSpeed, float orbitAngle, float orbitRadius, int materialIndex, int textureIndex) :
+	SpaceObject(glm::vec3(0.0f), radius, materialIndex, orbitSpeed, orbitAngle, orbitRadius, textureIndex)
 {
 	this->radius = radius;
 	this->weight = weight;

@@ -5,14 +5,14 @@
 Scene::Scene(uint32_t nrPlanets)
 {
 	std::vector<SpaceObject*> planets;
-	planets.push_back(new Mercury());
-	planets.push_back(new Venus());
-	planets.push_back(new Earth());
-	planets.push_back(new Mars());
-	planets.push_back(new Jupiter());
-	planets.push_back(new Saturn());
-	planets.push_back(new Uranus());
-	planets.push_back(new Neptune());
+	planets.push_back(new Mercury(0, 0));
+	planets.push_back(new Venus(0, 1));
+	planets.push_back(new Earth(0, 2));
+	planets.push_back(new Mars(0, 3));
+	planets.push_back(new Jupiter(0, 4));
+	planets.push_back(new Saturn(0, 5));
+	planets.push_back(new Uranus(0, 6));
+	planets.push_back(new Neptune(0, 7));
 
 	if (nrPlanets == 8)
 	{
