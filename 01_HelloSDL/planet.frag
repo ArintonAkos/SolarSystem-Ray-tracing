@@ -13,8 +13,8 @@ struct Material
 
 struct Hit {
     float t;
-    vec3 position, normal;
-    int mat;
+    vec3 position;
+    vec3 normal;
     int planetIndex;
 };
 
@@ -35,7 +35,6 @@ struct Ray
 {
     vec3 startPos;
 	vec3 direction;
-    int depth;
 };
 
 struct Camera 
@@ -79,7 +78,7 @@ uniform int lightCount;
 uniform Material materials[15];
 uniform int materialCount;
 
-uniform int maxDepth = 10;
+uniform int maxDepth;
 uniform vec3 worldAmbient;
 
 Hit intersect (Ray ray, int planetIndex)
@@ -97,7 +96,7 @@ Hit intersect (Ray ray, int planetIndex)
 	if (discr < 0) return hit;
 
 	float sqrt_discr = sqrt(discr);
-	float t1 = (-b + sqrt_discr) / 2.0f / a;	// t1 >= t2 for sure
+	float t1 = (-b + sqrt_discr) / 2.0f / a;
 	float t2 = (-b - sqrt_discr) / 2.0f / a;
 	if (t1 <= 0) return hit;
 	hit.t = (t2 > 0) ? t2 : t1;
@@ -198,8 +197,16 @@ vec3 calculateLighting(Ray ray, Hit hit)
 
 vec3 trace (Ray ray)
 {
-    const float epsilon = 0.1;
-    vec3 outColor = vec3(0.0, 0.0, 0.0);
+    const float epsilon = 0.001;
+    vec3 color = vec3(0.0, 0.0, 0.0);
+
+    vec3 averageLightPosition = vec3(0.0);
+
+    for (int i = 0; i < lightCount; i++)
+    {
+        averageLightPosition += lights[i].position;
+    }
+    averageLightPosition /= lightCount;
 
     for (int d = 0; d < maxDepth; d++)
     {               
@@ -207,20 +214,24 @@ vec3 trace (Ray ray)
 
         if (hit.t <= 0.0)
 		{
-            outColor += worldAmbient;
+            color += worldAmbient;
             break;
         }
 
         if (d == 0)
         {
-            outColor += calculateLighting(ray, hit);
+            float distance = length(camera.position - averageLightPosition);
+            float distanceFactor = 1.0 / ( max (1.0, ( distance / 150 )));
+            color += distanceFactor * calculateLighting(ray, hit);
         }
-           
+        
+        //visszaverodes a bolygokrol
+        
         ray.startPos = hit.position + epsilon * hit.normal;
         ray.direction = reflect(ray.direction, hit.normal);
     }
 
-	return outColor;
+	return color;
 }
 
 void main()
