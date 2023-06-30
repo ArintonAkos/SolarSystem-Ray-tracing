@@ -18,7 +18,7 @@ SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
 
     DataTypes::Light light1;
     light1.position = glm::vec3(0, 0, 0);
-    light1.ambient = glm::vec3(0.8f, 0.9f, 0.9f);
+    light1.ambient = glm::vec3(0.3f, 0.4f, 0.6f);
     light1.diffuse = glm::vec3(0.4f, 0.6f, 0.6f);
     light1.specular = glm::vec3(0.9f, 0.9f, 0.9f);
     light1.constant = 1.0f;
