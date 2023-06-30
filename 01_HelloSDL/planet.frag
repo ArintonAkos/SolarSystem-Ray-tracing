@@ -143,7 +143,7 @@ bool inShadow(Hit hit, Ray shadowRay, Light light)
 
 vec3 calculateLighting(Ray ray, Hit hit)
 {
-    float epsilon = 0.0001;
+    float epsilon = 0.01;
     vec3 outColor = vec3(0.0);
 
     for (int i = 0; i < lightCount; i++)
