@@ -174,18 +174,10 @@ void Application::game_loop() {
                 switch (e.type)
                 {
                     case SDL_KEYDOWN:
-                        camera->handleKeyDownEvent(e.key);
-                        switch_scenes(e.key);
+                        handleKeyDownEvent(e.key);
                         break;
                     case SDL_KEYUP:
-                        if (e.key.keysym.scancode == SDL_SCANCODE_N|| e.key.keysym.scancode == SDL_SCANCODE_M)
-                        {
-                            scenes[aciveSceneIndex]->get_solar_system()->handleKeyUpEvent(e.key);
-                        } 
-                        else
-                        {
-                            camera->handleKeyUpEvent(e.key);
-                        }
+                        handleKeyUpEvent(e.key);
                         break;
                     case SDL_MOUSEMOTION:
                         camera->handleMouseMovedEvent(e.motion);
@@ -232,6 +224,24 @@ void Application::switch_scenes(const SDL_KeyboardEvent& key)
             break;
         default:
             break;
+    }
+}
+
+void Application::handleKeyDownEvent(const SDL_KeyboardEvent& key)
+{
+    camera->handleKeyDownEvent(key);
+    switch_scenes(key);
+}
+
+void Application::handleKeyUpEvent(const SDL_KeyboardEvent& key)
+{
+    if (key.keysym.scancode == SDL_SCANCODE_N || key.keysym.scancode == SDL_SCANCODE_M)
+    {
+        scenes[aciveSceneIndex]->get_solar_system()->handleKeyUpEvent(key);
+    }
+    else
+    {
+        camera->handleKeyUpEvent(key);
     }
 }
 
