@@ -4,6 +4,12 @@
 
 Scene::Scene(uint32_t nrPlanets)
 {
+	std::vector<SpaceObject*> planets = initPlanetsVector();
+	initSolarSystem(nrPlanets, planets);
+}
+
+std::vector<SpaceObject*> Scene::initPlanetsVector()
+{
 	std::vector<SpaceObject*> planets;
 	planets.push_back(new Sun(0, 0));
 	planets.push_back(new Mercury(0, 1));
@@ -15,6 +21,11 @@ Scene::Scene(uint32_t nrPlanets)
 	planets.push_back(new Uranus(0, 7));
 	planets.push_back(new Neptune(0, 8));
 
+	return planets;
+}
+
+void Scene::initSolarSystem(uint32_t nrPlanets, std::vector<SpaceObject*> planets)
+{
 	if (nrPlanets == 9)
 	{
 		solarSystem = new SolarSystem(planets);

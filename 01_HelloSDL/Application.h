@@ -36,6 +36,9 @@ private:
     void render();
     void switch_scenes(const SDL_KeyboardEvent& key);
 
+    void handleKeyDownEvent(const SDL_KeyboardEvent& key);
+    void handleKeyUpEvent(const SDL_KeyboardEvent& key);
+
 public:
     Application();
     ~Application();
