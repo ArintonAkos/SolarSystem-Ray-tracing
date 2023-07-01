@@ -11,7 +11,8 @@ struct Material
     float shininess;
 };
 
-struct Hit {
+struct Hit 
+{
     float t;
     vec3 position;
     vec3 normal;
@@ -114,7 +115,8 @@ Hit firstIntersection(Ray ray)
     Hit bestHit;
 	bestHit.t = -1;
 
-	for (int i = 0; i < planetCount; i++) {
+	for (int i = 0; i < planetCount; i++) 
+    {
 		Hit hit = intersect(ray, i);
 
 		if (hit.t > 0 && (bestHit.t < 0 || hit.t < bestHit.t))  

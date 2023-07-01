@@ -53,7 +53,6 @@ SolarSystem::~SolarSystem()
     delete canvas;
     delete canvasMesh;
     delete sceneShader;
-    delete sun;
 }
 
 void SolarSystem::addPlanet(Planet* planet)

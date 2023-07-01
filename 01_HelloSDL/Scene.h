@@ -16,8 +16,6 @@ public:
 	Scene(uint32_t nrPlanets = 9);
 	~Scene();
 
-	void add_planet(Planet* planet);
-
 	void set_solar_system(SolarSystem* solarSystem);
 	
 	SolarSystem* get_solar_system();
