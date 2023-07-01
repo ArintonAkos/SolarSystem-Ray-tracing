@@ -27,6 +27,7 @@ public:
     void add_texture(GLuint texture_id);
     
     static GLuint create_texture_from_file(const char* texturePath);
+    static GLuint create_cubemap_from_files(std::vector<std::string> filePaths);
 
     virtual void draw(Shader *shader);
 

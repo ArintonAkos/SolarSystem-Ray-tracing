@@ -130,16 +130,77 @@ GLuint Mesh::create_texture_from_file(const char* texturePath)
     return texture_id;
 }
 
+GLuint Mesh::create_cubemap_from_files(std::vector<std::string> filePaths)
+{
+    if (filePaths.size() != 6)
+    {
+		throw std::runtime_error("Failed to load cubemap: cubemap must contain 6 textures.");
+	}
+
+    GLuint texture_id = 0;
+    glGenTextures(1, &texture_id);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, texture_id);
+
+    SDL_Surface *surface = nullptr;
+    int img_mode = 0;
+
+    for (size_t i = 0; i < filePaths.size(); ++i)
+    {
+        surface = IMG_Load(filePaths[i].c_str());
+        if (!surface)
+        {
+            throw std::runtime_error("Failed to load cubemap: failed to load cubemap texture.");
+        }
+
+# if SDL_BYTEORDER == SDL_BIG_ENDIAN
+        if (surface->format->BytesPerPixel == 4)
+            img_mode = GL_BGRA;
+        else
+            img_mode = GL_BGR;
+# else
+        if (surface->format->BytesPerPixel == 4)
+            img_mode = GL_RGBA;
+        else
+            img_mode = GL_RGB;
+# endif
+
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, surface->w, surface->h, 0, GL_RGB, GL_UNSIGNED_BYTE, surface->pixels);
+        
+        SDL_FreeSurface(surface);
+    }
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    return texture_id;
+}
+
 void Mesh::draw(Shader *shader)
 {
     shader->activate();
 
+    uint32_t diffuseTextureIndex = 0;
+
     for (size_t i = 0; i < textures.size(); i++)
 	{
-		glActiveTexture(GL_TEXTURE0 + i);
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+        glActiveTexture(GL_TEXTURE0 + i);
+        
+        std::string varName = "";
 
-        std::string varName = "textures[" + std::to_string(i) + "]";
+        if (textures[i].type == "cubemap")
+        {
+            glBindTexture(GL_TEXTURE_CUBE_MAP, textures[i].id);
+            varName = "cubemapTexture";
+        }
+        else
+        {
+            glBindTexture(GL_TEXTURE_2D, textures[i].id);
+            varName = "textures[" + std::to_string(diffuseTextureIndex++) + "]";
+        }
+
         shader->setInt(varName, i);
 	}
 

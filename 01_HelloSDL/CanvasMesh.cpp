@@ -15,7 +15,7 @@ CanvasMesh::CanvasMesh() : Mesh()
 		2, 3, 0
 	};
 
-	std::vector<DataTypes::Texture> texts(9);
+	std::vector<DataTypes::Texture> texts(10);
 	texts[0] = DataTypes::Texture(create_texture_from_file("Textures/sun.jpg"), "diffuse");
 	texts[1] = DataTypes::Texture(create_texture_from_file("Textures/venus.jpg"), "diffuse");
 	texts[2] = DataTypes::Texture(create_texture_from_file("Textures/mercury.jpg"), "diffuse");
@@ -25,6 +25,17 @@ CanvasMesh::CanvasMesh() : Mesh()
 	texts[6] = DataTypes::Texture(create_texture_from_file("Textures/saturn.jpg"), "diffuse");
 	texts[7] = DataTypes::Texture(create_texture_from_file("Textures/uranus.jpg"), "diffuse");
 	texts[8] = DataTypes::Texture(create_texture_from_file("Textures/neptune.jpg"), "diffuse");
+
+	std::vector<std::string> skyboxFaces = {
+		"Textures/skybox/right.jpg",
+		"Textures/skybox/left.jpg",
+		"Textures/skybox/top.jpg",
+		"Textures/skybox/bottom.jpg",
+		"Textures/skybox/front.jpg",
+		"Textures/skybox/back.jpg"
+	};
+
+	texts[9] = DataTypes::Texture(create_cubemap_from_files(skyboxFaces), "cubemap");
 
 	set_vertices(verts);
 	set_indices(inds);

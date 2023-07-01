@@ -71,6 +71,7 @@ uniform Planet planets[15];
 uniform int planetCount;  
 
 uniform sampler2D textures[15];
+uniform samplerCube cubemapTexture;
 
 uniform Light lights[4];
 uniform int lightCount;
@@ -212,7 +213,6 @@ vec3 calculateLighting(Ray ray, Hit hit)
     return outColor;
 }
 
-
 vec3 trace (Ray ray)
 {
     const float epsilon = 0.1;
@@ -232,6 +232,12 @@ vec3 trace (Ray ray)
 
         if (hit.t <= 0.0)
 		{
+            if (d == 0)
+            {
+                color += textureCube(cubemapTexture, ray.direction).rgb;
+                break;
+            }
+
             color += worldAmbient;
             break;
         }
