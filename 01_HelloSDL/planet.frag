@@ -190,43 +190,55 @@ vec3 calculateLighting(Ray ray, Hit hit)
         shadowRay.startPos = hit.position + epsilon * hit.normal;
         shadowRay.direction = normalize(lights[i].position - hit.position);
 
-        float shadowFactor = inShadow(hit, lights[i].position);
-        if (shadowFactor <= 0)
-            continue;
-
         float cosTheta = dot(hit.normal, shadowRay.direction);
 
         if (cosTheta > 0.0)
         {
             Material material = materials[planets[hit.planetIndex].materialIndex];
-
-            // Ambient component
-            vec3 ambient = material.ambient * lights[i].ambient;
-
-            // Diffuse component
-            vec3 diffuse = vec3(0.0);
-            
             int textureIndex = planets[hit.planetIndex].textureIndex;
-            if (textureIndex > -1)
-			{
-                vec2 sphereTextCoords = calculateSphereTextCoords(hit);
-                diffuse = texture(textures[textureIndex], sphereTextCoords).rgb * lights[i].diffuse * cosTheta;
-			}
+
+            float shadowFactor = inShadow(hit, lights[i].position);
+            if (shadowFactor <= 0)
+            {
+                if ( textureIndex > -1 )
+                {
+                    vec2 sphereTextCoords = calculateSphereTextCoords(hit);
+                    color += material.ambient * lights[i].ambient * texture(textures[textureIndex], sphereTextCoords).rgb; 
+                }
+				else
+				{
+					color += material.ambient * lights[i].ambient;
+				}
+            }
             else
             {
-                diffuse = material.diffuse * lights[i].diffuse * cosTheta;
+                 // Ambient component
+                vec3 ambient = material.ambient * lights[i].ambient;
+
+                // Diffuse component
+                vec3 diffuse = vec3(0.0);
+            
+                if (textureIndex > -1)
+			    {
+                    vec2 sphereTextCoords = calculateSphereTextCoords(hit);
+                    diffuse = texture(textures[textureIndex], sphereTextCoords).rgb * lights[i].diffuse * cosTheta;
+			    }
+                else
+                {
+                    diffuse = material.diffuse * lights[i].diffuse * cosTheta;
+                }
+
+                diffuse *= shadowFactor;
+
+                // Specular component
+                vec3 halfway = normalize(shadowRay.direction - ray.direction);
+                float cosDelta = dot(hit.normal, halfway);
+                vec3 specular = material.specular * lights[i].specular * pow(cosDelta, material.shininess);
+
+                specular *= shadowFactor;
+
+                color += ambient + diffuse + specular;
             }
-
-            diffuse *= shadowFactor;
-
-            // Specular component
-            vec3 halfway = normalize(shadowRay.direction - ray.direction);
-            float cosDelta = dot(hit.normal, halfway);
-            vec3 specular = material.specular * lights[i].specular * pow(cosDelta, material.shininess);
-
-            specular *= shadowFactor;
-
-            color += ambient + diffuse + specular;
         }
     }
 
@@ -268,11 +280,11 @@ vec3 trace (Ray ray)
         if (hit.t <= 0.0)
 		{
         
-            // if (d == 0)
-            // {
-             //  color += textureCube(cubemapTexture, ray.direction).rgb;
-             //  break;
-            // }
+            if (d == 0)
+            {
+               color += textureCube(cubemapTexture, ray.direction).rgb;
+               break;
+            }
 
             color += worldAmbient;
             break;
@@ -291,7 +303,7 @@ vec3 trace (Ray ray)
         }
         else
         {
-            color += calculateReflectLighting(ray, hit) * (0.10 / d);
+            color += calculateReflectLighting(ray, hit) * (0.05 / d);
         }
 
         ray.startPos = hit.position + epsilon * hit.normal;
