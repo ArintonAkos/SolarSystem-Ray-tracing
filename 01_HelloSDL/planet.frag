@@ -56,6 +56,7 @@ struct Planet
 {
     vec3 position;
     float radius;
+    float spinAngle;
 
     int materialIndex;
     int textureIndex;
@@ -163,17 +164,13 @@ float inShadow(Hit hit, vec3 lightPosition)
 
 vec2 calculateSphereTextCoords(Hit hit)
 {
-    int textureIndex = planets[hit.planetIndex].textureIndex;
-    
-    if (textureIndex <= -1)
-	{
-        return vec2(0.0);
-    }
+    vec3 localPos = hit.position - planets[hit.planetIndex].position;
+    float phi = atan(localPos.z, localPos.x);
+    float theta = acos(localPos.y / length(localPos));
 
-	vec3 hitNormal = hit.normal * planets[hit.planetIndex].radius;
-    float u = 0.5 + atan(hitNormal.z, hitNormal.x) / (2.0 * M_PI);
-    float v = 0.5 - asin(hitNormal.y / planets[hit.planetIndex].radius) / M_PI;
-    
+    float u = (phi + planets[hit.planetIndex].spinAngle) / (2.0 * M_PI);
+    float v = theta / M_PI;
+
     return vec2(u, v);
 }
 

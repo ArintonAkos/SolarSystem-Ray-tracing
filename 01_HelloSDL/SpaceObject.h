@@ -28,5 +28,7 @@ public:
 	void set_texture_index(int textureIndex);
 	int get_texture_index() const;
 
+	float get_spin_angle() const;
+
 	void move(float deltaTime) override;
 };

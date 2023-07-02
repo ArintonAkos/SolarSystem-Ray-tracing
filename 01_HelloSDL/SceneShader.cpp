@@ -8,6 +8,7 @@ void SceneShader::setPlanet(const std::string& name, SpaceObject* planet) const
 {
 	setVec3(name + ".position", planet->get_position());
 	setFloat(name + ".radius", planet->get_radius());
+	setFloat(name + ".spinAngle", planet->get_spin_angle());
 	setInt(name + ".materialIndex", planet->get_material_index());
 	setInt(name + ".textureIndex", planet->get_texture_index());
 }

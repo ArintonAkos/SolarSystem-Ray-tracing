@@ -51,10 +51,16 @@ int SpaceObject::get_texture_index() const
 	return textureIndex;
 }
 
+float SpaceObject::get_spin_angle() const
+{
+	return spinAngle;
+}
+
 void SpaceObject::move(float deltaTime)
 {
-	orbitAngle += orbitSpeed * deltaTime;
+	orbitAngle = orbitSpeed * deltaTime;
 
 	position.x = orbitRadius * cos(orbitAngle);
 	position.z = orbitRadius * sin(orbitAngle);
+	spinAngle += spinSpeed * deltaTime;
 }
