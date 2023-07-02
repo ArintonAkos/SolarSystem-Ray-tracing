@@ -12,14 +12,14 @@ std::vector<SpaceObject*> Scene::initPlanetsVector()
 {
 	std::vector<SpaceObject*> planets;
 	planets.push_back(new Sun(0, 0));
-	planets.push_back(new Mercury(0, 1));
-	planets.push_back(new Venus(0, 2));
-	planets.push_back(new Earth(0, 3));
-	planets.push_back(new Mars(0, 4));
-	planets.push_back(new Jupiter(0, 5));
-	planets.push_back(new Saturn(0, 6));
-	planets.push_back(new Uranus(0, 7));
-	planets.push_back(new Neptune(0, 8));
+	planets.push_back(new Mercury(1, 1));
+	planets.push_back(new Venus(2, 2));
+	planets.push_back(new Earth(3, 3));
+	planets.push_back(new Mars(4, 4));
+	planets.push_back(new Jupiter(5, 5));
+	planets.push_back(new Saturn(6, 6));
+	planets.push_back(new Uranus(7, 7));
+	planets.push_back(new Neptune(8, 8));
 
 	return planets;
 }
