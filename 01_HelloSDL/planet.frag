@@ -1,4 +1,5 @@
 #version 460 core
+#extension GL_NV_shadow_samplers_cube : enable
 
 #define M_PI 3.14159265359
 
@@ -83,6 +84,12 @@ uniform int materialCount;
 uniform int maxDepth;
 uniform vec3 worldAmbient;
 
+const float epsilon = 0.1;
+
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
 Hit intersect (Ray ray, int planetIndex)
 {
     Planet planet = planets[planetIndex];
@@ -129,19 +136,29 @@ Hit firstIntersection(Ray ray)
     return bestHit;
 }
 
-bool inShadow(Hit hit, Ray shadowRay, Light light)
+float inShadow(Hit hit, vec3 lightPosition)
 {
-    Hit shadowHit = firstIntersection(shadowRay);
-    if (shadowHit.t > 0)
-    {
-        float distToLight = length(light.position - hit.position);
-        float distToShadowHit = length(shadowHit.position - hit.position);
+    float shadowFactor = 0.0;
+    float N = 16.0; // number of shadow rays to cast
 
-        if (shadowHit.planetIndex > 0 && distToShadowHit < distToLight)
-			return true;
+    for (int i = 0; i < N; i++) 
+    {
+        vec3 offset = vec3(rand(vec2(i, hit.t)) - 0.5, rand(vec2(hit.t, i)) - 0.5, rand(vec2(i, i)) - 0.5);
+        Ray shadowRay;
+        shadowRay.startPos = hit.position + epsilon * hit.normal;
+        shadowRay.direction = normalize(lightPosition + offset - hit.position);
+
+        Hit shadowHit = firstIntersection(shadowRay);
+        if (shadowHit.t > 0)
+        {
+            float distToLight = length(lightPosition + offset - hit.position);
+            float distToShadowHit = length(shadowHit.position - hit.position);
+            if (shadowHit.planetIndex > 0 && distToShadowHit < distToLight)
+                shadowFactor += 1.0;
+        }
     }
 
-    return false;
+    return 1.0 - (shadowFactor / N);
 }
 
 vec2 calculateSphereTextCoords(Hit hit)
@@ -162,7 +179,6 @@ vec2 calculateSphereTextCoords(Hit hit)
 
 vec3 calculateLighting(Ray ray, Hit hit)
 {
-    float epsilon = 0.1;
     vec3 outColor = vec3(0.0);
 
     if (hit.planetIndex == 0)
@@ -177,8 +193,9 @@ vec3 calculateLighting(Ray ray, Hit hit)
         shadowRay.startPos = hit.position + epsilon * hit.normal;
         shadowRay.direction = normalize(lights[i].position - hit.position);
 
-        if (inShadow(hit, shadowRay, lights[i]))
-			continue;
+        float shadowFactor = inShadow(hit, lights[i].position);
+        if (shadowFactor <= 0)
+            continue;
 
         float cosTheta = dot(hit.normal, shadowRay.direction);
 
@@ -203,10 +220,14 @@ vec3 calculateLighting(Ray ray, Hit hit)
                 diffuse = material.diffuse * lights[i].diffuse * cosTheta;
             }
 
+            diffuse *= shadowFactor;
+
             // Specular component
             vec3 halfway = normalize(shadowRay.direction - ray.direction);
             float cosDelta = dot(hit.normal, halfway);
             vec3 specular = material.specular * lights[i].specular * pow(cosDelta, material.shininess);
+
+            specular *= shadowFactor;
 
             outColor += ambient + diffuse + specular;
         }
@@ -243,6 +264,7 @@ vec3 trace (Ray ray)
             color += worldAmbient;
             break;
         }
+        
 
         if (d == 0)
         {
