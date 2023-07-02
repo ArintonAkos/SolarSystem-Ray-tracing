@@ -4,6 +4,7 @@
 
 Camera::Camera(glm::vec3 eye, glm::vec3 worldUp, float pitch, float yaw) : eye(eye), worldUp(worldUp), pitch(pitch), yaw(yaw)
 {
+    speedFactor = 1.0f;
     speed = 30.0f;
     sensitivity = 0.1f;
     moveForward = moveRight = moveUp = 0;
@@ -128,7 +129,7 @@ void Camera::update(float deltaTime)
 	{
         glm::vec3 direction = glm::normalize(frontAxis * moveForward + sideAxis * moveRight + upAxis * moveUp);
 		
-        eye += direction * speed * deltaTime;
+        eye += direction * speed * speedFactor * deltaTime;
 		
         calculateViewMatrix();
 	}
@@ -156,6 +157,9 @@ void Camera::handleKeyDownEvent(const SDL_KeyboardEvent& key)
         case SDL_SCANCODE_LCTRL:
             moveUp = -1.0f;
             break;
+        case SDL_SCANCODE_LSHIFT:
+            speedFactor = 3.0f;
+            break;
         default:
             break;
     }
@@ -177,6 +181,9 @@ void Camera::handleKeyUpEvent(const SDL_KeyboardEvent& key)
         case SDL_SCANCODE_LCTRL:
 		    moveUp = 0.0f;
 		    break;
+        case SDL_SCANCODE_LSHIFT:
+            speedFactor = 1.0f;
+            break;
         default:
             break;
     }

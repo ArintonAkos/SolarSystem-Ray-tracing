@@ -10,6 +10,7 @@ private:
     glm::vec3 frontAxis, sideAxis, upAxis;
     glm::mat4 projectionMatrix, viewMatrix, viewProjectionMatrix;
 
+    float speedFactor;
     float fov, width, height;
 
     float yaw, pitch;
