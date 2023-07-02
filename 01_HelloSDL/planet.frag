@@ -179,7 +179,7 @@ vec2 calculateSphereTextCoords(Hit hit)
 
 vec3 calculateLighting(Ray ray, Hit hit)
 {
-    vec3 outColor = vec3(0.0);
+    vec3 color = vec3(0.0);
 
     if (hit.planetIndex == 0)
     {
@@ -229,11 +229,11 @@ vec3 calculateLighting(Ray ray, Hit hit)
 
             specular *= shadowFactor;
 
-            outColor += ambient + diffuse + specular;
+            color += ambient + diffuse + specular;
         }
     }
 
-    return outColor;
+    return color;
 }
 
 vec3 trace (Ray ray)
@@ -255,11 +255,12 @@ vec3 trace (Ray ray)
 
         if (hit.t <= 0.0)
 		{
-            if (d == 0)
-            {
-                color += textureCube(cubemapTexture, ray.direction).rgb;
-                break;
-            }
+        
+            // if (d == 0)
+            // {
+             //  color += textureCube(cubemapTexture, ray.direction).rgb;
+             //  break;
+            // }
 
             color += worldAmbient;
             break;
@@ -276,9 +277,11 @@ vec3 trace (Ray ray)
         {
             break;
         }
-        
-        //visszaverodes a bolygokrol
-        
+        else
+        {
+            //visszaverodes a bolygokrol
+        }
+
         ray.startPos = hit.position + epsilon * hit.normal;
         ray.direction = reflect(ray.direction, hit.normal);
     }
