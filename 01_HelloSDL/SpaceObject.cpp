@@ -1,10 +1,12 @@
 #include "SpaceObject.h"
 
-SpaceObject::SpaceObject(glm::vec3 position, float radius, int materialIndex, float orbitSpeed, float orbitAngle, float orbitRadius, int textureIndex) :
+SpaceObject::SpaceObject(glm::vec3 position, float radius, int materialIndex, float orbitSpeed, float orbitAngle, float orbitRadius, float spinSpeed, int textureIndex) :
 	position(position),
 	radius(radius),
 	materialIndex(materialIndex),
 	textureIndex(textureIndex),
+	spinSpeed(spinSpeed),
+	spinAngle(0.0f),
 	Movable(orbitSpeed, orbitAngle, orbitRadius)
 {
 }

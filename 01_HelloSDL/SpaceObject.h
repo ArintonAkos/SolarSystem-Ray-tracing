@@ -8,11 +8,13 @@ class SpaceObject : public Movable
 protected:
 	glm::vec3 position;
 	float radius;
+	float spinSpeed;
+	float spinAngle;
 	int materialIndex;
 	int textureIndex;
 
 public:
-	SpaceObject(glm::vec3 position, float radius, int materialIndex, float orbitSpeed, float orbitAngle, float orbitRadius, int textureIndex = -1);
+	SpaceObject(glm::vec3 position, float radius, int materialIndex, float orbitSpeed, float orbitAngle, float orbitRadius, float spinSpeed, int textureIndex = -1);
 
 	void set_position(glm::vec3 position);
 	glm::vec3 get_position() const;
