@@ -27,6 +27,7 @@ private:
     void initialize_graphical_context();
     void initialize_gl_debug_context();
     void initialize_window_context();
+    Scene* create_special_scene();
     
     void game_loop();
     

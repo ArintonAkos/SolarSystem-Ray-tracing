@@ -10,6 +10,28 @@ SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
     canvas->attach_mesh(canvasMesh);
     canvas->attach_shader(sceneShader);
 
+    init_materials();
+    init_lights();
+
+    this->planets = planets;
+
+    addMoonsToSpaceObjects();
+}
+
+SolarSystem::~SolarSystem()
+{
+    for (auto& planet : planets)
+    {
+        delete planet;
+    }
+
+    delete canvas;
+    delete canvasMesh;
+    delete sceneShader;
+}
+
+void SolarSystem::init_materials()
+{
     DataTypes::Material material;
     material.ambient = glm::vec3(0.05f, 0.05f, 0.05f);
     material.diffuse = glm::vec3(0.2f, 0.2f, 0.2f);
@@ -28,7 +50,7 @@ SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
     venusMaterial.specular = glm::vec3(0.3f, 0.3f, 0.3f);
     venusMaterial.shininess = 7;
 
-    DataTypes::Material earthMaterial;  
+    DataTypes::Material earthMaterial;
     earthMaterial.ambient = glm::vec3(0.05f, 0.05f, 0.05f);
     earthMaterial.diffuse = glm::vec3(0.0f, 0.3984f, 1.0f);
     earthMaterial.specular = glm::vec3(0.3f, 0.3f, 0.3f);
@@ -64,6 +86,20 @@ SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
     neptuneMaterial.specular = glm::vec3(0.3f, 0.3f, 0.3f);
     neptuneMaterial.shininess = 7;
 
+    materials.push_back(material);
+    materials.push_back(mercuryMaterial);
+    materials.push_back(venusMaterial);
+    materials.push_back(earthMaterial);
+    materials.push_back(marsMaterial);
+    materials.push_back(jupiterMaterial);
+    materials.push_back(saturnMaterial);
+    materials.push_back(uranusMaterial);
+    materials.push_back(neptuneMaterial);
+}
+
+void SolarSystem::init_lights()
+{
+
     DataTypes::Light light1;
     light1.position = glm::vec3(0.0f, 0.0f, 0.0f);
     light1.ambient = glm::vec3(0.05f, 0.05f, 0.05f);
@@ -82,34 +118,8 @@ SolarSystem::SolarSystem(std::vector<SpaceObject*> planets)
     light2.linear = 0.09f;
     light2.quadratic = 0.032f;
 
-    materials.push_back(material);
-    materials.push_back(mercuryMaterial);
-    materials.push_back(venusMaterial);
-    materials.push_back(earthMaterial);
-    materials.push_back(marsMaterial);
-    materials.push_back(jupiterMaterial);
-    materials.push_back(saturnMaterial);
-    materials.push_back(uranusMaterial);
-    materials.push_back(neptuneMaterial);
-
     lights.push_back(light1);
     lights.push_back(light2);
-
-    this->planets = planets;
-
-    addMoonsToSpaceObjects();
-}
-
-SolarSystem::~SolarSystem()
-{
-    for (auto& planet : planets)
-    {
-        delete planet;
-    }
-
-    delete canvas;
-    delete canvasMesh;
-    delete sceneShader;
 }
 
 void SolarSystem::addPlanet(Planet* planet)

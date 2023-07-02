@@ -15,6 +15,11 @@ float Planet::get_weight() const
 	return weight;
 }
 
+void Planet::set_weight(float weight)
+{
+	this->weight = weight;
+}
+
 void Planet::add_moon(Moon* moon)
 {
 	moons.push_back(moon);

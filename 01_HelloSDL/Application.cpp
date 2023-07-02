@@ -133,6 +133,27 @@ void Application::initialize_window_context()
     {
         scenes.push_back(new Scene(1 + rand() % 8));
     }
+    scenes.push_back(create_special_scene());
+}
+
+Scene* Application::create_special_scene()
+{
+    Planet* earth = new Earth(3, 3);
+    Sun* sun = new Sun(0, 0);
+
+    earth->set_weight(1500.0f);
+    earth->get_moons()[0]->set_weight(1500.0f);
+    sun->set_weight(1500.0f);
+
+    std::vector<SpaceObject*> planets;
+    planets.push_back(sun);
+    planets.push_back(earth);
+
+    SolarSystem* specialSystem = new SolarSystem(planets);
+    Scene* specialScene = new Scene();
+    specialScene->set_solar_system(specialSystem);
+
+    return specialScene;
 }
 
 void Application::update(float delta_time) 

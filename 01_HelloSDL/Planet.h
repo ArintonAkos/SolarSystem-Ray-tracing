@@ -18,6 +18,7 @@ public:
     ~Planet();
 
     float get_weight() const;
+    void set_weight(float weight);
 
     void add_moon(Moon* moon);
 
