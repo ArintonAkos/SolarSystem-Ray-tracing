@@ -58,7 +58,7 @@ float SpaceObject::get_spin_angle() const
 
 void SpaceObject::move(float deltaTime)
 {
-	orbitAngle = orbitSpeed * deltaTime;
+	orbitAngle += orbitSpeed * deltaTime;
 
 	position.x = orbitRadius * cos(orbitAngle);
 	position.z = orbitRadius * sin(orbitAngle);
