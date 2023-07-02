@@ -233,6 +233,21 @@ vec3 calculateLighting(Ray ray, Hit hit)
     return color;
 }
 
+vec3 calculateReflectLighting(Ray ray, Hit hit)
+{
+    vec3 color = vec3(0.0);
+
+    if (hit.planetIndex == 0)
+    {
+        return color;
+    }
+
+    color += materials[planets[hit.planetIndex].materialIndex].diffuse;
+
+    return color;
+
+}
+
 vec3 trace (Ray ray)
 {
     const float epsilon = 0.1;
@@ -276,7 +291,7 @@ vec3 trace (Ray ray)
         }
         else
         {
-            //visszaverodes a bolygokrol
+            color += calculateReflectLighting(ray, hit) * (0.10 / d);
         }
 
         ray.startPos = hit.position + epsilon * hit.normal;
