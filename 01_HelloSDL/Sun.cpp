@@ -5,6 +5,7 @@ cSun::cSun(float radius, float weight, int materialIndex, int textureIndex) :
 
 cSun::~cSun() {}
 
+/*
 float cSun::get_weight() const
 {
 	return weight;
@@ -14,3 +15,4 @@ void cSun::set_weight(float weight)
 {
 	this->weight = weight;
 }
+*/

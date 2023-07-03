@@ -15,6 +15,7 @@ Moon::Moon(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, 
 
 Moon::~Moon() {}
 
+/*
 float Moon::get_weight() const
 {
 	return weight;
@@ -24,6 +25,7 @@ void Moon::set_weight(float weight)
 {
 	this->weight = weight;
 }
+*/
 
 void Moon::move(float deltaTime)
 {

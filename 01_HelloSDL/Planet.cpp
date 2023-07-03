@@ -10,6 +10,7 @@ Planet::Planet(float radius, float weight, float orbitSpeed, float orbitAngle, f
 
 Planet::~Planet() {}
 
+/*
 float Planet::get_weight() const
 {
 	return weight;
@@ -19,6 +20,7 @@ void Planet::set_weight(float weight)
 {
 	this->weight = weight;
 }
+*/
 
 void Planet::add_moon(Moon* moon)
 {

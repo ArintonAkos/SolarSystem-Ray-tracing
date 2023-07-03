@@ -7,6 +7,7 @@ class SpaceObject : public Movable
 {
 protected:
 	glm::vec3 position;
+	float weight = 0.0f;
 	float radius;
 	float spinSpeed;
 	float spinAngle;
@@ -33,6 +34,9 @@ public:
 
 	void set_orbit_angle(float orbitAngle);
 	float get_orbit_angle() const;
+
+	void set_weight(float weight);
+	float get_weight() const;
 
 	float get_spin_angle() const;
 

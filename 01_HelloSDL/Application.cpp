@@ -141,11 +141,17 @@ Scene* Application::create_special_scene()
 {
     Planet* earth = new Earth(3, 3);
     Sun* sun = new Sun(0, 0);
-    Planet* planetX = new PlanetX(earth, sun, 4, 4);
+    Moon* moon = earth->get_moons()[0];
 
-    earth->set_weight(1500.0f);
-    earth->get_moons()[0]->set_weight(1500.0f);
-    sun->set_weight(1500.0f);
+    std::vector<SpaceObject*> neighbours;
+    neighbours.push_back(earth);
+    neighbours.push_back(sun);
+    neighbours.push_back(moon);
+    Planet* planetX = new PlanetX(neighbours, 4, 4);
+
+    earth->set_weight(999999999999.0f);
+    moon->set_weight(999999999999.0f);
+    sun->set_weight(999999999999.0f);
     planetX->set_position(glm::vec3(-150 + rand() % 300, 0.0f, 50.0f + rand() % 100));
     planetX->set_orbit_speed((float)(10 + rand() % 500));
     planetX->set_orbit_angle((float)(5 + rand() % 70));

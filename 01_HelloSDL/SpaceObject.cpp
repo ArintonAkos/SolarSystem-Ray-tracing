@@ -71,6 +71,16 @@ float SpaceObject::get_orbit_angle() const
 	return orbitAngle;
 }
 
+void SpaceObject::set_weight(float weight)
+{
+	this->weight = weight;
+}
+
+float SpaceObject::get_weight() const
+{
+	return weight;
+}
+
 float SpaceObject::get_spin_angle() const
 {
 	return spinAngle;
