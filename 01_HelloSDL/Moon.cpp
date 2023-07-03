@@ -1,8 +1,8 @@
 #include "Moon.h"
 #include "Planet.h"
 
-Moon::Moon(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, Planet* parent, float orbitTilt, float weight) :
-	SpaceObject(glm::vec3(0.0f), radius, parent->get_material_index(), orbitSpeed, orbitAngle, 0.0f, orbitRadius)
+Moon::Moon(float radius, float orbitSpeed, float orbitAngle, float orbitRadius, Planet* parent, float orbitTilt, float weight) : 
+	SpaceObject(glm::vec3(0.0f), radius, parent->get_material_index(), orbitSpeed, orbitAngle, orbitRadius, 0.0f)
 {
 	this->radius = radius;
 	this->orbitSpeed = orbitSpeed;
