@@ -146,7 +146,7 @@ Scene* Application::create_special_scene()
     earth->set_weight(1500.0f);
     earth->get_moons()[0]->set_weight(1500.0f);
     sun->set_weight(1500.0f);
-    planetX->set_position(glm::vec3((float)(50 + rand() % 50)));
+    planetX->set_position(glm::vec3(-150 + rand() % 300, 0.0f, 50.0f + rand() % 100));
     planetX->set_orbit_speed((float)(10 + rand() % 500));
     planetX->set_orbit_angle((float)(5 + rand() % 70));
 
@@ -162,7 +162,7 @@ Scene* Application::create_special_scene()
     return specialScene;
 }
 
-void Application::update(float delta_time) 
+void Application::update(float delta_time)
 {
     camera->update(delta_time);
     scenes[aciveSceneIndex]->get_solar_system()->update(delta_time);
@@ -261,7 +261,7 @@ void Application::set_new_random_planetX_position(const SDL_KeyboardEvent& key)
         switch (key.keysym.scancode)
         {
             case SDL_SCANCODE_R:
-                scenes[scenes.size() - 1]->get_solar_system()->get_planets()[2]->set_position(glm::vec3((float)(50 + rand() % 50)));
+                scenes[scenes.size() - 1]->get_solar_system()->get_planets()[2]->set_position(glm::vec3(-150 + rand() % 300, 0.0f, 50.0f + rand() % 100));
                 break;
             default:
                 break;
