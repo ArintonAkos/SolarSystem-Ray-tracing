@@ -43,5 +43,7 @@ public:
 
     void addMoonsToSpaceObjects();
 
+    std::vector<SpaceObject*> get_planets();
+
     void handleKeyUpEvent(const SDL_KeyboardEvent& key);
 };

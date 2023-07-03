@@ -176,6 +176,11 @@ void SolarSystem::addMoonsToSpaceObjects()
     }
 }
 
+std::vector<SpaceObject*> SolarSystem::get_planets()
+{
+    return planets;
+}
+
 void SolarSystem::handleKeyUpEvent(const SDL_KeyboardEvent& key)
 {
     switch (key.keysym.scancode)

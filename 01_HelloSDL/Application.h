@@ -35,7 +35,9 @@ private:
 
     void update(float delta_time);
     void render();
+
     void switch_scenes(const SDL_KeyboardEvent& key);
+    void set_new_random_planetX_position(const SDL_KeyboardEvent& key);
 
     void handleKeyDownEvent(const SDL_KeyboardEvent& key);
     void handleKeyUpEvent(const SDL_KeyboardEvent& key);

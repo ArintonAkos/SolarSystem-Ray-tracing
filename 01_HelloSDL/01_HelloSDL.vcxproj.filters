@@ -89,6 +89,9 @@
     <ClCompile Include="SpaceObject.cpp">
       <Filter>Types</Filter>
     </ClCompile>
+    <ClCompile Include="PlanetX.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -147,6 +150,9 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetX.h">
+      <Filter>View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -51,6 +51,26 @@ int SpaceObject::get_texture_index() const
 	return textureIndex;
 }
 
+void SpaceObject::set_orbit_speed(float orbitSpeed)
+{
+	this->orbitSpeed = orbitSpeed;
+}
+
+float SpaceObject::get_orbit_speed() const
+{
+	return orbitSpeed;
+}
+
+void SpaceObject::set_orbit_angle(float orbitAngle)
+{
+	this->orbitAngle = orbitAngle;
+}
+
+float SpaceObject::get_orbit_angle() const
+{
+	return orbitAngle;
+}
+
 float SpaceObject::get_spin_angle() const
 {
 	return spinAngle;

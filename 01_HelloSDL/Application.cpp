@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "GLDebugMessageCallback.h"
+#include "PlanetX.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -140,14 +141,19 @@ Scene* Application::create_special_scene()
 {
     Planet* earth = new Earth(3, 3);
     Sun* sun = new Sun(0, 0);
+    Planet* planetX = new PlanetX(earth, sun, 4, 4);
 
     earth->set_weight(1500.0f);
     earth->get_moons()[0]->set_weight(1500.0f);
     sun->set_weight(1500.0f);
+    planetX->set_position(glm::vec3((float)(50 + rand() % 50)));
+    planetX->set_orbit_speed((float)(10 + rand() % 500));
+    planetX->set_orbit_angle((float)(5 + rand() % 70));
 
     std::vector<SpaceObject*> planets;
     planets.push_back(sun);
     planets.push_back(earth);
+    planets.push_back(planetX);
 
     SolarSystem* specialSystem = new SolarSystem(planets);
     Scene* specialScene = new Scene();
@@ -248,10 +254,26 @@ void Application::switch_scenes(const SDL_KeyboardEvent& key)
     }
 }
 
+void Application::set_new_random_planetX_position(const SDL_KeyboardEvent& key)
+{
+    if (aciveSceneIndex == scenes.size() - 1)
+    {
+        switch (key.keysym.scancode)
+        {
+            case SDL_SCANCODE_R:
+                scenes[scenes.size() - 1]->get_solar_system()->get_planets()[2]->set_position(glm::vec3((float)(50 + rand() % 50)));
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 void Application::handleKeyDownEvent(const SDL_KeyboardEvent& key)
 {
     camera->handleKeyDownEvent(key);
     switch_scenes(key);
+    set_new_random_planetX_position(key);
 }
 
 void Application::handleKeyUpEvent(const SDL_KeyboardEvent& key)
