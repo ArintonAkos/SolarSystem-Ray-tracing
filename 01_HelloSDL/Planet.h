@@ -7,8 +7,8 @@
 #include <vector>
 
 class Planet : public SpaceObject {
-private:
-    float weight;
+// private:
+    // float weight;
 
 protected:
     std::vector<Moon*> moons;
@@ -17,8 +17,8 @@ public:
     Planet(float radius, float weight, float orbitSpeed, float orbitAngle, float orbitRadius, float spinSpeed, int materialIndex, int textureIndex);
     ~Planet();
 
-    float get_weight() const;
-    void set_weight(float weight);
+    // float get_weight() const;
+    // void set_weight(float weight);
 
     void add_moon(Moon* moon);
 
