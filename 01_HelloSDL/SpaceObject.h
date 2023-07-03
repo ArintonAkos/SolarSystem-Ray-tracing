@@ -28,6 +28,12 @@ public:
 	void set_texture_index(int textureIndex);
 	int get_texture_index() const;
 
+	void set_orbit_speed(float orbitSpeed);
+	float get_orbit_speed() const;
+
+	void set_orbit_angle(float orbitAngle);
+	float get_orbit_angle() const;
+
 	float get_spin_angle() const;
 
 	void move(float deltaTime) override;

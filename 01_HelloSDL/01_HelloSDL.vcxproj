@@ -96,6 +96,7 @@
     <ClCompile Include="Moon.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="CanvasMesh.cpp" />
+    <ClCompile Include="PlanetX.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneShader.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="CanvasMesh.h" />
+    <ClInclude Include="PlanetX.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Planets.h" />
     <ClInclude Include="SceneShader.h" />

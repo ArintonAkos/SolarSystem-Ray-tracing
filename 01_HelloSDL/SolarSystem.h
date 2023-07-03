@@ -28,6 +28,9 @@ private:
 
     int maxDepth = 5;
 
+    void init_materials();
+    void init_lights();
+
 public:
     SolarSystem(std::vector<SpaceObject*> planets);
     ~SolarSystem();
@@ -39,6 +42,8 @@ public:
     void update(float deltaTime);
 
     void addMoonsToSpaceObjects();
+
+    std::vector<SpaceObject*> get_planets();
 
     void handleKeyUpEvent(const SDL_KeyboardEvent& key);
 };
